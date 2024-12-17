@@ -1,19 +1,70 @@
 <script setup lang="ts">
+import { updateUserInfoAPI } from "@/apis/user";
 import { useMemberStore } from "@/stores";
+import type { updateUserParams } from "@/types/user";
+import { ref } from "vue";
 
 const memberStore = useMemberStore();
+const userProfile = ref({} as updateUserParams);
+
+// 点击修改图片
+const onAvatarChange = () => {
+  uni.chooseMedia({
+    // 文件个数
+    count: 1,
+    // 文件类型
+    mediaType: ["image"],
+    success: (res) => {
+      // 本地路径 (上传的图片的本地路径)
+      const { tempFilePath } = res.tempFiles[0];
+      // 文件上传
+      uni.uploadFile({
+        url: "http://localhost:8080/admin/user/upload",
+        name: "image",
+        filePath: tempFilePath, // 新头像
+        success: (res) => {
+          if (res.statusCode === 200) {
+            // 提取头像
+            const { avatar } = JSON.parse(res.data).result;
+            userProfile.value.avatar = avatar;
+            // 当前页面更新头像
+            memberStore.profile!.avatar = avatar;
+            uni.showToast({ icon: "success", title: "更新成功" });
+          } else {
+            uni.showToast({ icon: "error", title: "出现错误" });
+          }
+        },
+      });
+    },
+  });
+};
+
+const udpateUserInfo = async () => {
+  memberStore.profile!.nickName = userProfile.value.nickName;
+  await updateUserInfoAPI(userProfile.value);
+  uni.showToast({ title: "修改信息成功", icon: "success" });
+};
 </script>
 <template>
   <view class="profile-container">
     <!-- 头像区域 -->
     <view class="avatar-wrapper">
-      <image :src="memberStore.profile?.avatar" class="avatar"></image>
+      <image
+        :src="memberStore.profile?.avatar"
+        class="avatar"
+        @tap="onAvatarChange"
+      ></image>
       <view class="username">{{ memberStore.profile?.nickName }}</view>
     </view>
 
     <!-- 输入昵称 -->
     <view class="input-wrapper">
-      <input type="text" placeholder="请输入昵称" class="nickname-input" />
+      <input
+        type="text"
+        placeholder="请输入昵称"
+        class="nickname-input"
+        v-model="userProfile.nickName"
+      />
     </view>
 
     <!-- 提示信息 -->
@@ -23,7 +74,7 @@ const memberStore = useMemberStore();
 
     <!-- 提交按钮 -->
     <view class="submit-wrapper">
-      <button class="submit-button">提交修改</button>
+      <button class="submit-button" @tap="udpateUserInfo">提交修改</button>
     </view>
   </view>
 </template>

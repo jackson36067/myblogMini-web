@@ -22,3 +22,8 @@ export type UserInfo = {
   points: number;
   isSignIn: boolean;
 };
+
+export type updateUserParams = {
+  avatar: string;
+  nickName: string;
+};
