@@ -86,6 +86,11 @@ const doLike = async (id: number) => {
   await doLikeAPI({ id });
   getArticleList();
 };
+
+//
+const onArticleTitleChange = () => {
+  getArticleList();
+};
 </script>
 
 <template>
@@ -140,6 +145,7 @@ const doLike = async (id: number) => {
       :inputBorder="false"
       trim="all"
       :styles="inputStyle"
+      @change="onArticleTitleChange"
     ></uni-easyinput>
   </view>
   <view class="uni-padding-wrap uni-common-mt">

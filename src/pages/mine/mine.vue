@@ -193,7 +193,7 @@ const toCalendar = () => {
   background: linear-gradient(90deg, #ff8e88, #fd1d4a); /* 渐变色 */
   margin: 40rpx auto;
   border-radius: 25rpx;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8rpx 12rpx rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
   color: white;
   font-size: 30rpx;
@@ -216,7 +216,7 @@ const toCalendar = () => {
     margin-top: 75rpx;
     font-size: 25rpx;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 按钮阴影 */
+    box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.2); /* 按钮阴影 */
   }
 }
 .category {
@@ -232,6 +232,9 @@ const toCalendar = () => {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    .text {
+      font-size: 26rpx;
+    }
   }
 }
 .content {
