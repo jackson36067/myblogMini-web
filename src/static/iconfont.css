@@ -1,6 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4776579 */
-  src: url("/static/iconfont.ttf") format("truetype");
+  src: url('iconfont.woff2?t=1734435111700') format('woff2'),
+       url('iconfont.woff?t=1734435111700') format('woff'),
+       url('iconfont.ttf?t=1734435111700') format('truetype');
 }
 
 .iconfont {
@@ -9,6 +11,58 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-css:before {
+  content: "\e61e";
+}
+
+.icon-java:before {
+  content: "\e639";
+}
+
+.icon-typescript:before {
+  content: "\e6a3";
+}
+
+.icon-springboot:before {
+  content: "\e612";
+}
+
+.icon-a-mybatisplus:before {
+  content: "\e62e";
+}
+
+.icon-mybatisplus:before {
+  content: "\e602";
+}
+
+.icon-spring-security:before {
+  content: "\e605";
+}
+
+.icon-document-uniapp:before {
+  content: "\e603";
+}
+
+.icon-JavaScript:before {
+  content: "\e704";
+}
+
+.icon-CSS:before {
+  content: "\e61d";
+}
+
+.icon-redis:before {
+  content: "\e669";
+}
+
+.icon-suanfaku:before {
+  content: "\e623";
+}
+
+.icon-moxingku:before {
+  content: "\e61c";
 }
 
 .icon-aixin1:before {
@@ -54,3 +108,4 @@
 .icon-shopping:before {
   content: "\e869";
 }
+
