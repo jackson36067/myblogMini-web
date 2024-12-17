@@ -1,0 +1,93 @@
+{
+  // 配置uni-ui自动导入
+  "easycom": {
+    "autoscan": true,
+    "custom": {
+      // uni-ui 规则如下配置, 使用正则表达式匹配
+      "^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+    }
+  },
+  "pages": [
+    //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "首页"
+      }
+    },
+    {
+      "path": "pages/mine/mine",
+      "style": {
+        "navigationBarTitleText": "我的"
+      }
+    },
+    {
+      "path": "pages/function/function",
+      "style": {
+        "navigationBarTitleText": "专题"
+      }
+    },
+    {
+      "path": "pages/login/login",
+      "style": {
+        "navigationBarTitleText": "登录"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#333",
+    "backgroundColor": "#fff",
+    "borderStyle": "black",
+    "selectedColor": "skyblue",
+    "list": [
+      {
+        "text": "首页",
+        "pagePath": "pages/index/index",
+        "iconPath": "static/tab/index.png",
+        "selectedIconPath": "static/tab/index_clicked.png"
+      },
+      {
+        "text": "专题",
+        "pagePath": "pages/function/function",
+        "iconPath": "static/tab/function.png",
+        "selectedIconPath": "static/tab/function_clicked.png"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/mine/mine",
+        "iconPath": "static/tab/mine.png",
+        "selectedIconPath": "static/tab/mine_clicked.png"
+      }
+    ]
+  },
+  "subPackages": [
+    {
+      "root": "pageMember/calendar",
+      "pages": [
+        {
+          "path": "calendar",
+          "style": {
+            "navigationBarTitleText": "签到详情"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pageMember/userInfo",
+      "pages": [
+        {
+          "path": "userInfo",
+          "style": {
+            "navigationBarTitleText": "修改信息"
+          }
+        }
+      ]
+    }
+  ]
+}
