@@ -51,11 +51,15 @@ onLoad(() => {
 <template>
   <view class="article">文章分类</view>
   <view class="classify">
-    <view
+    <navigator
       class="item"
       v-for="item in calssifyList"
       :key="item.id"
-      :style="{ background: item.background }"
+      :style="{
+        background: item.background,
+      }"
+      hover-class="none"
+      :url="`/pages/classify/classify?id=${item.id}`"
     >
       <view class="type">
         <span style="font-size: 46rpx">{{ item.type[0] }}</span
@@ -67,7 +71,7 @@ onLoad(() => {
         custom-prefix="iconfont"
         size="40"
       />
-    </view>
+    </navigator>
   </view>
 </template>
 <style lang="scss">

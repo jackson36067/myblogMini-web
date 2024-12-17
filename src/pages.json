@@ -32,6 +32,12 @@
       "style": {
         "navigationBarTitleText": "登录"
       }
+    },
+    {
+      "path": "pages/classify/classify",
+      "style": {
+        "navigationBarTitleText": "文章分类详情"
+      }
     }
   ],
   "globalStyle": {

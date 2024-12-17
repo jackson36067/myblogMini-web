@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { doLikeAPI } from "@/apis/article";
 import type { articleInfo } from "@/types/article";
 
 // 接收父组件传递的数据
@@ -9,6 +8,7 @@ defineProps<{
 }>();
 
 const emit = defineEmits(); // 定义事件
+// 点击点赞时执行父组件传递的函数
 const doLike = (id: number) => {
   // 接收父组件传递的函数
   emit("clicked", id);
