@@ -4,6 +4,7 @@ type category = {
   icon: CustomIconType;
   title: string;
   color: string;
+  url: string;
 };
 export type pageResult<T> = {
   total: number;

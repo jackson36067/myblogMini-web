@@ -38,6 +38,12 @@
       "style": {
         "navigationBarTitleText": "文章分类详情"
       }
+    },
+    {
+      "path": "pages/article/article",
+      "style": {
+        "navigationBarTitleText": "我的喜欢"
+      }
     }
   ],
   "globalStyle": {

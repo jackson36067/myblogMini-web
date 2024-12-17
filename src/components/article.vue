@@ -75,7 +75,6 @@ const doLike = (id: number) => {
     width: 140rpx;
     height: 140rpx;
     flex-shrink: 0;
-    margin-left: 20rpx;
     border-radius: 20rpx;
   }
 

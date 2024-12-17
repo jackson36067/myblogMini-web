@@ -15,26 +15,31 @@ const categoryList = ref<category[]>([
     icon: "icon-shoucang",
     title: "我的收藏",
     color: "#f57d1f",
+    url: `/pages/article/article?params=${"我的收藏"}`,
   },
   {
     icon: "icon-aixin",
     title: "我的点赞",
     color: "#e54d41",
+    url: `/pages/article/article?params=${"我的点赞"}`,
   },
   {
     icon: "icon-jiahao",
     title: "我的关注",
     color: "#b945cc",
+    url: ``,
   },
   {
     icon: "icon-r",
     title: "我的资源",
     color: "#e2c12f",
+    url: `/pages/article/article?params=${"我的资源"}`,
   },
   {
     icon: "icon-shopping",
     title: "我的积分",
     color: "#df7a25",
+    url: "",
   },
 ]);
 
@@ -130,9 +135,9 @@ const toCalendar = () => {
     <navigator
       class="category-item"
       hover-class="none"
-      url="/pages/index/index"
       v-for="(item, index) in categoryList"
       :key="index"
+      :url="item.url"
     >
       <uni-icons
         custom-prefix="iconfont"

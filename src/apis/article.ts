@@ -28,3 +28,17 @@ export const doLikeAPI = (data: { id: number }) => {
     data,
   });
 };
+
+export const getArticleLikeAPI = () => {
+  return httpInstacne<articleInfo[]>({
+    method: "GET",
+    url: `/article/like`,
+  });
+};
+
+export const getMyArticleAPI = () => {
+  return httpInstacne<articleInfo[]>({
+    method: "GET",
+    url: `/article/my`,
+  });
+};
