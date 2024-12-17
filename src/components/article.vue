@@ -1,38 +1,59 @@
-<template>
-  <view class="card-container">
-    <!-- 卡片图片 -->
-    <image class="card-image" mode="aspectFill"></image>
+<script setup lang="ts">
+import { doLikeAPI } from "@/apis/article";
+import type { articleInfo } from "@/types/article";
 
+// 接收父组件传递的数据
+defineProps<{
+  list: articleInfo[];
+  // getArticleList: Function;
+}>();
+
+const emit = defineEmits(); // 定义事件
+const doLike = (id: number) => {
+  // 接收父组件传递的函数
+  emit("clicked", id);
+};
+</script>
+<template>
+  <view class="card-container" v-for="item in list" :key="item.id">
+    <!-- 卡片图片 -->
+    <image class="card-image" mode="aspectFill" :src="item.coverImage"></image>
     <!-- 卡片内容区域 -->
     <view class="card-content">
-      <text class="card-title">小程序Canvas</text>
+      <text class="card-title">{{ item.author }}</text>
       <text class="card-description">
-        小程序 createCanvasContext 开发实例，明信片 DIY 小程序源码分享
+        {{ item.title }}
       </text>
       <view class="card-footer">
-        <text class="date">2022/7/28</text>
+        <text class="date">{{ item.createTime }}</text>
         <view class="icons">
           <uni-icons
             class="icon"
             custom-prefix="iconfont"
             type="icon-guankan"
-            size="10"
+            size="20"
+            color="#999"
           ></uni-icons>
-          <text class="icon-text">20</text>
+          <text class="icon-text">{{ item.totalVisit }}</text>
           <uni-icons
             class="icon"
             custom-prefix="iconfont"
-            type="icon-aixin"
-            size="10"
+            :type="!item.isLike ? 'icon-aixin' : 'icon-aixin1'"
+            size="20"
+            :color="!item.isLike ? '#999' : 'red'"
+            @tap="doLike(item.id)"
           ></uni-icons>
-          <text class="icon-text">20</text>
+          <text class="icon-text" style="margin-left: 5rpx">{{
+            item.totalLike
+          }}</text>
           <uni-icons
             class="icon"
             custom-prefix="iconfont"
             type="icon-pinglun"
-            size="10"
+            size="20"
+            color="#999"
           ></uni-icons>
-          <text class="icon-text">20</text>
+          <text class="icon-text">{{ item.totalComment }}</text>
         </view>
       </view>
     </view>
@@ -42,57 +63,66 @@
 <style lang="scss">
 .card-container {
   display: flex;
+  align-items: center;
   background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 20rpx;
+  box-shadow: 0 8rpx 12rpx rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  margin: 10px;
+  margin: 20rpx;
 
   /* 左侧图片 */
   .card-image {
-    width: 100px;
-    height: 100px;
+    width: 140rpx;
+    height: 140rpx;
     flex-shrink: 0;
+    margin-left: 20rpx;
+    border-radius: 20rpx;
   }
 
   /* 右侧内容区域 */
   .card-content {
     flex: 1;
-    padding: 10px;
+    padding: 20rpx;
+    padding-bottom: 10rpx;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
     /* 标题样式 */
     .card-title {
-      font-size: 16px;
+      font-size: 32rpx;
       font-weight: bold;
       color: #333;
-      margin-bottom: 5px;
+      margin-bottom: 10rpx;
     }
 
     /* 描述样式 */
     .card-description {
-      font-size: 12px;
+      font-size: 24rpx;
       color: #666;
-      margin-bottom: 10px;
+      margin-bottom: 20rpx;
       line-height: 1.4;
     }
     /* 底部信息区域 */
     .card-footer {
       display: flex;
       justify-content: space-between;
-      font-size: 10px;
+      align-items: center;
+      font-size: 20rpx;
       color: #999;
       .icons {
         display: flex;
-        margin-right: 4px; // 图标与文本间距
+        align-items: center;
         .icon {
-          margin-right: 4px; // 图标与文本间距
+          margin-right: 8rpx; // 图标与文本间距
         }
         .icon-text {
-          font-size: 10px;
+          font-size: 30rpx;
           color: #999; // 与原样式保持一致
+          margin-right: 30rpx;
+          &:last-child {
+            margin-right: 0;
+          }
         }
       }
     }

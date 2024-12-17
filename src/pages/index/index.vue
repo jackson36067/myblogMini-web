@@ -5,6 +5,7 @@ import type { category, pageResult } from "@/types/conponent";
 import type { articleInfo } from "@/types/article";
 import { doLikeAPI, getArticleAPI } from "@/apis/article";
 import { onLoad } from "@dcloudio/uni-app";
+import Article from "@/components/article.vue";
 const swiperBanner = ref<string[]>([
   "https://ossweb-img.qq.com/images/lol/web201310/skin/big84001.jpg",
   "https://ossweb-img.qq.com/images/lol/web201310/skin/big39000.jpg",
@@ -73,17 +74,16 @@ onLoad(() => {
   getArticleList();
 });
 
+const doLike = async (id: number) => {
+  await doLikeAPI({ id });
+  getArticleList();
+};
+
 // 点击tab栏切换内容
 const onClickItem: UniHelper.UniSegmentedControlOnClickItem = (event) => {
   current.value = event.currentIndex;
   page.value = 1;
   articleList.value = [];
-  getArticleList();
-};
-
-// 点赞实现
-const doLike = async (id: number) => {
-  await doLikeAPI({ id });
   getArticleList();
 };
 
@@ -159,53 +159,7 @@ const onArticleTitleChange = () => {
     />
   </view>
   <view class="content">
-    <view class="card-container" v-for="item in articleList" :key="item.id">
-      <!-- 卡片图片 -->
-      <image
-        class="card-image"
-        mode="aspectFill"
-        :src="item.coverImage"
-      ></image>
-      <!-- 卡片内容区域 -->
-      <view class="card-content">
-        <text class="card-title">{{ item.author }}</text>
-        <text class="card-description">
-          {{ item.title }}
-        </text>
-        <view class="card-footer">
-          <text class="date">{{ item.createTime }}</text>
-          <view class="icons">
-            <uni-icons
-              class="icon"
-              custom-prefix="iconfont"
-              type="icon-guankan"
-              size="20"
-              color="#999"
-            ></uni-icons>
-            <text class="icon-text">{{ item.totalVisit }}</text>
-            <uni-icons
-              class="icon"
-              custom-prefix="iconfont"
-              :type="!item.isLike ? 'icon-aixin' : 'icon-aixin1'"
-              size="20"
-              :color="!item.isLike ? '#999' : 'red'"
-              @tap="doLike(item.id)"
-            ></uni-icons>
-            <text class="icon-text" style="margin-left: 5rpx">{{
-              item.totalLike
-            }}</text>
-            <uni-icons
-              class="icon"
-              custom-prefix="iconfont"
-              type="icon-pinglun"
-              size="20"
-              color="#999"
-            ></uni-icons>
-            <text class="icon-text">{{ item.totalComment }}</text>
-          </view>
-        </view>
-      </view>
-    </view>
+    <Article :list="articleList" @clicked="doLike" />
   </view>
 </template>
 

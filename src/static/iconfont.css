@@ -1,8 +1,6 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4776579 */
-  src: url('iconfont.woff2?t=1734435111700') format('woff2'),
-       url('iconfont.woff?t=1734435111700') format('woff'),
-       url('iconfont.ttf?t=1734435111700') format('truetype');
+  src: url("/static/iconfont.ttf") format("truetype");
 }
 
 .iconfont {
@@ -108,4 +106,3 @@
 .icon-shopping:before {
   content: "\e869";
 }
-
