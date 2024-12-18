@@ -29,16 +29,26 @@ export const doLikeAPI = (data: { id: number }) => {
   });
 };
 
-export const getArticleLikeAPI = () => {
+export const getArticleLikeAPI = (title?: string) => {
+  const data: Record<string, any> = {};
+  if (title) {
+    data.title = title;
+  }
   return httpInstacne<articleInfo[]>({
     method: "GET",
     url: `/article/like`,
+    data,
   });
 };
 
-export const getMyArticleAPI = () => {
+export const getMyArticleAPI = (type: number, title?: string) => {
+  const data: Record<string, any> = { type };
+  if (title) {
+    data.title = title;
+  }
   return httpInstacne<articleInfo[]>({
     method: "GET",
     url: `/article/my`,
+    data: data,
   });
 };

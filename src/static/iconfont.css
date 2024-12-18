@@ -11,6 +11,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-ai64:before {
+  content: "\e6b6";
+}
+
+.icon-star:before {
+  content: "\e61b";
+}
+
 .icon-css:before {
   content: "\e61e";
 }

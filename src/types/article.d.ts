@@ -8,4 +8,6 @@ export type articleInfo = {
   totalLike: number;
   totalComment: number;
   isLike: boolean;
+  description: string;
+  tags: string[];
 };

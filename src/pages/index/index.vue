@@ -22,21 +22,25 @@ const categoryList = ref<category[]>([
     icon: "icon-github",
     title: "开源项目",
     color: "#b945cc",
+    url: "",
   },
   {
     icon: "icon-file",
     title: "面试刷题",
     color: "#de5e59",
+    url: "",
   },
   {
     icon: "icon-r",
     title: "小程序",
     color: "#edc505",
+    url: "",
   },
   {
     icon: "icon-shopping",
     title: "开源资源",
     color: "#df7a25",
+    url: "",
   },
 ]);
 
@@ -230,73 +234,5 @@ const onArticleTitleChange = () => {
 .content {
   background-color: #ededed;
   padding: 15rpx 0;
-  /* 卡片容器样式 */
-  .card-container {
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-    border-radius: 20rpx;
-    box-shadow: 0 8rpx 12rpx rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    margin: 20rpx;
-
-    /* 左侧图片 */
-    .card-image {
-      width: 140rpx;
-      height: 140rpx;
-      flex-shrink: 0;
-      margin-left: 20rpx;
-      border-radius: 20rpx;
-    }
-
-    /* 右侧内容区域 */
-    .card-content {
-      flex: 1;
-      padding: 20rpx;
-      padding-bottom: 10rpx;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      /* 标题样式 */
-      .card-title {
-        font-size: 32rpx;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 10rpx;
-      }
-
-      /* 描述样式 */
-      .card-description {
-        font-size: 24rpx;
-        color: #666;
-        margin-bottom: 20rpx;
-        line-height: 1.4;
-      }
-      /* 底部信息区域 */
-      .card-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 20rpx;
-        color: #999;
-        .icons {
-          display: flex;
-          align-items: center;
-          .icon {
-            margin-right: 8rpx; // 图标与文本间距
-          }
-          .icon-text {
-            font-size: 30rpx;
-            color: #999; // 与原样式保持一致
-            margin-right: 30rpx;
-            &:last-child {
-              margin-right: 0;
-            }
-          }
-        }
-      }
-    }
-  }
 }
 </style>

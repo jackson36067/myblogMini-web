@@ -72,8 +72,8 @@ const doLike = (id: number) => {
 
   /* 左侧图片 */
   .card-image {
-    width: 140rpx;
-    height: 140rpx;
+    width: 164rpx;
+    height: 164rpx;
     flex-shrink: 0;
     border-radius: 20rpx;
   }
