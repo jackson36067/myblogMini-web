@@ -21,6 +21,10 @@ export type UserInfo = {
   id: string;
   points: number;
   isSignIn: boolean;
+  totalLike: number;
+  totalFriend: number;
+  totalFollow: number;
+  totalFans: number;
 };
 
 export type updateUserParams = {

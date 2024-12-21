@@ -3,13 +3,47 @@ import { getUserInfoAPI } from "@/apis/user";
 import { doSignAPI } from "@/apis/userSign";
 import { useMemberStore } from "@/stores";
 import { useSignStore } from "@/stores/modules/sign";
-import type { category } from "@/types/conponent";
+import type { category, popup } from "@/types/conponent";
 import type { UserInfo } from "@/types/user";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
+import LikePopup from "./component/LikePopup.vue";
 
 const memberStore = useMemberStore();
 const signStore = useSignStore();
+
+type own = { name: string; num: number };
+const ownList = ref<own[]>([
+  {
+    name: "点赞",
+    num: 1,
+  },
+  {
+    name: "朋友",
+    num: 0,
+  },
+  {
+    name: "关注",
+    num: 1,
+  },
+  {
+    name: "粉丝",
+    num: 0,
+  },
+]);
+
+// 点击点赞获取popup弹窗
+const likePopup = ref<popup>();
+const showLikePopup = (name: string) => {
+  if (name === "点赞") {
+    likePopup.value?.open();
+  }
+};
+// 关闭弹窗
+const doCloseLikePopup = () => {
+  likePopup.value?.close();
+};
+
 const categoryList = ref<category[]>([
   {
     icon: "icon-shoucang",
@@ -22,12 +56,6 @@ const categoryList = ref<category[]>([
     title: "我的点赞",
     color: "#e54d41",
     url: `/pages/article/article?params=${"我的点赞"}`,
-  },
-  {
-    icon: "icon-jiahao",
-    title: "我的关注",
-    color: "#b945cc",
-    url: ``,
   },
   {
     icon: "icon-r",
@@ -47,10 +75,19 @@ const userInfo = ref<UserInfo>({
   id: "",
   points: 0,
   isSignIn: false,
+  totalLike: 0,
+  totalFriend: 0,
+  totalFollow: 0,
+  totalFans: 0,
 });
 const getUserInfo = async () => {
   const res = await getUserInfoAPI();
   userInfo.value = res.data;
+  // 规定
+  ownList.value[0].num = res.data.totalLike;
+  ownList.value[1].num = res.data.totalFriend;
+  ownList.value[2].num = res.data.totalFollow;
+  ownList.value[3].num = res.data.totalFans;
 };
 onLoad(() => {
   getUserInfo();
@@ -81,7 +118,7 @@ const itemList = ref<category[]>([
   },
   {
     icon: "icon-editor",
-    title: "文章管理",
+    title: "新增文章",
     color: "#B6A9E9",
     url: `/pages/mine/mine`,
   },
@@ -111,7 +148,9 @@ const itemList = ref<category[]>([
         {{ memberStore.profile.nickName }}
       </view>
       <view class="extra">
-        <text class="tips">积分: {{ userInfo?.points }}</text>
+        <text class="tips" style="color: #e3b194"
+          >积分: {{ userInfo?.points }}</text
+        >
       </view>
     </view>
     <view class="chevron-right">
@@ -158,6 +197,31 @@ const itemList = ref<category[]>([
     <span class="span">今日还未签到 </span>
     <button class="button" @tap="doSign">点击签到</button>
   </view>
+  <view class="own">
+    <view
+      class="own-list"
+      v-for="(item, index) in ownList"
+      :key="index"
+      @tap="showLikePopup(item.name)"
+    >
+      <view class="number">{{ item.num }}</view>
+      <view class="name">{{ item.name }}</view>
+    </view>
+  </view>
+  <!-- 总点赞弹窗 -->
+  <uni-popup
+    ref="likePopup"
+    type="center"
+    background-color="#fff"
+    is-mask-click
+    mask-background-color="rgba(0,0,0,0.4)"
+  >
+    <LikePopup
+      :nickName="memberStore.profile?.nickName"
+      :totalLike="ownList[0].num"
+      @closeLikePopup="doCloseLikePopup"
+    />
+  </uni-popup>
   <view class="category">
     <navigator
       class="category-item"
@@ -279,6 +343,21 @@ const itemList = ref<category[]>([
     font-size: 25rpx;
     cursor: pointer;
     box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.2); /* 按钮阴影 */
+  }
+}
+.own {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 20rpx;
+  border-bottom: 4rpx solid #f3f3f3;
+  .own-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 32rpx;
+    .number {
+      font-weight: 700;
+    }
   }
 }
 .category {
