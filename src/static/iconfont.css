@@ -11,6 +11,54 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-cuowu:before {
+  content: "\e641";
+}
+
+.icon-x:before {
+  content: "\e85d";
+}
+
+.icon-wujiaoxing:before {
+  content: "\e614";
+}
+
+.icon-wujiaoxing-:before {
+  content: "\e647";
+}
+
+.icon-weibiaoti-:before {
+  content: "\e60a";
+}
+
+.icon-dagou:before {
+  content: "\e633";
+}
+
+.icon-fasong:before {
+  content: "\e60f";
+}
+
+.icon-biaoqing:before {
+  content: "\e606";
+}
+
+.icon-fenlei:before {
+  content: "\e604";
+}
+
+.icon-biaoqian:before {
+  content: "\eabd";
+}
+
+.icon-pinglun1:before {
+  content: "\e891";
+}
+
+.icon-editor:before {
+  content: "\e6f5";
+}
+
 .icon-ai64:before {
   content: "\e6b6";
 }

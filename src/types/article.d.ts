@@ -1,5 +1,5 @@
 export type articleInfo = {
-  id: nubmer;
+  id: string;
   title: string;
   coverImage: string;
   author: string;
@@ -10,4 +10,22 @@ export type articleInfo = {
   isLike: boolean;
   description: string;
   tags: string[];
+};
+
+export type articleDetailResult = {
+  id: string;
+  title: string;
+  createTime: string;
+  content: string;
+  coverImage: string;
+  totalComment: string;
+  totalLike: string;
+  totalVisit: string;
+  avatar: string;
+  nickName: string;
+  isLike: boolean;
+  isFollow: boolean;
+  tags: string[];
+  articleId: string;
+  isFavorite: boolean;
 };

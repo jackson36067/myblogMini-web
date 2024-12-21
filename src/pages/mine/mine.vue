@@ -71,6 +71,33 @@ const doSign = async () => {
 const toCalendar = () => {
   uni.navigateTo({ url: "/pageMember/calendar/calendar" });
 };
+
+const itemList = ref<category[]>([
+  {
+    icon: "icon-pinglun1",
+    title: "评论管理",
+    color: "#9edfb8",
+    url: `/pages/mine/mine`,
+  },
+  {
+    icon: "icon-editor",
+    title: "文章管理",
+    color: "#B6A9E9",
+    url: `/pages/mine/mine`,
+  },
+  {
+    icon: "icon-fenlei",
+    title: "类别管理",
+    color: "#CDBE9B",
+    url: `/pages/mine/mine`,
+  },
+  {
+    icon: "icon-biaoqian",
+    title: "标签管理",
+    color: "#E5A3A3",
+    url: `/pages/mine/mine`,
+  },
+]);
 </script>
 <template>
   <view class="info" v-if="memberStore.profile?.id">
@@ -148,7 +175,37 @@ const toCalendar = () => {
       <text class="text">{{ item.title }}</text>
     </navigator>
   </view>
-  <view class="content"></view>
+  <view class="content">
+    <navigator
+      v-for="(item, index) in itemList"
+      :key="index"
+      class="list-item"
+      :url="item.url"
+      open-type="navigate"
+      hover-class="none"
+    >
+      <!-- 左侧图标 -->
+      <view class="icon-wrapper">
+        <uni-icons
+          custom-prefix="iconfont"
+          :type="item.icon"
+          size="20"
+          :color="item.color"
+        ></uni-icons>
+      </view>
+      <!-- 中间标题文本 -->
+      <view class="title">{{ item.title }}</view>
+      <!-- 右侧箭头 -->
+      <view class="arrow-wrapper">
+        <uni-icons
+          custom-prefix="iconfont"
+          type="icon-chevron-right"
+          size="20"
+          color="#d8d8d8"
+        ></uni-icons>
+      </view>
+    </navigator>
+  </view>
 </template>
 <style lang="scss">
 @import "@/static/iconfont.css";
@@ -245,5 +302,37 @@ const toCalendar = () => {
 .content {
   margin-top: 30rpx;
   border-top: 16rpx solid #f3f3f3;
+  .list-item {
+    display: flex;
+    align-items: center;
+    padding: 20rpx 30rpx;
+    background-color: #ffffff;
+    border-bottom: 1rpx solid #f0f0f0;
+
+    .icon-wrapper {
+      width: 60rpx;
+      height: 60rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 20rpx;
+
+      .icon {
+        width: 48rpx;
+        height: 48rpx;
+      }
+    }
+
+    .title {
+      flex: 1;
+      font-size: 28rpx;
+      color: #333333;
+    }
+
+    .arrow-wrapper {
+      display: flex;
+      align-items: center;
+    }
+  }
 }
 </style>

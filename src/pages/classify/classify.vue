@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { getClassifyDetailAPI } from "@/apis/classify";
-import Article from "@/components/article.vue";
+import MyArticle from "@/components/myArticle.vue";
 import type { articleInfo } from "@/types/article";
 import type { classifyDetailResult } from "@/types/classify";
 import { onLoad } from "@dcloudio/uni-app";
@@ -24,7 +24,7 @@ onLoad(() => {
 
 <template>
   <view class="content">
-    <Article :list="articleList" />
+    <MyArticle :list="articleList" />
   </view>
 </template>
 

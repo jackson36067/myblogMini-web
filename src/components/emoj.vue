@@ -1,0 +1,190 @@
+<script setup lang="ts">
+// 定义一个 `emit` 事件
+const emit = defineEmits<{
+  (event: "selectEmjo", emoji: string): void;
+}>();
+const emojiList = [
+  { name: "😀", code: "😀" },
+  { name: "😁", code: "😁" },
+  { name: "😆", code: "😆" },
+  { name: "😅", code: "😅" },
+  { name: "🤣", code: "🤣" },
+  { name: "😂", code: "😂" },
+  { name: "🙂", code: "🙂" },
+  { name: "🙃", code: "🙃" },
+  { name: "🫠", code: "🫠" },
+  { name: "😉", code: "😉" },
+  { name: "😍", code: "😍" },
+  { name: "🥰", code: "🥰" },
+  { name: "😇", code: "😇" },
+  { name: "😊", code: "😊" },
+  { name: "🤩", code: "🤩" },
+  { name: "😘", code: "😘" },
+  { name: "😗", code: "😗" },
+  { name: "☺️", code: "☺️" },
+  { name: "😚", code: "😚" },
+  { name: "😙", code: "😙" },
+  { name: "🥲", code: "🥲" },
+  { name: "😋", code: "😋" },
+  { name: "😛", code: "😛" },
+  { name: "😜", code: "😜" },
+  { name: "🤪", code: "🤪" },
+  { name: "🤑", code: "🤑" },
+  { name: "🤗", code: "🤗" },
+  { name: "🤭", code: "🤭" },
+  { name: "🫢", code: "🫢" },
+  { name: "🫣", code: "🫣" },
+  { name: "🤫", code: "🤫" },
+  { name: "🤔", code: "🤔" },
+  { name: "🫡", code: "🫡" },
+  { name: "🤐", code: "🤐" },
+  { name: "🤨", code: "🤨" },
+  { name: "😐️", code: "😐️" },
+  { name: "😑", code: "😑" },
+  { name: "😶", code: "😶" },
+  { name: "🫥", code: "🫥" },
+  { name: "😶‍🌫️", code: "😶‍🌫️" },
+  { name: "😏", code: "😏" },
+  { name: "😒", code: "😒" },
+  { name: "🙄", code: "🙄" },
+  { name: "😬", code: "😬" },
+  { name: "😮‍💨", code: "😮‍💨" },
+  { name: "🤥", code: "🤥" },
+  { name: "🫨", code: "🫨" },
+  { name: "🙂‍↔️", code: "🙂‍↔️" },
+  { name: "🙂‍↕️", code: "🙂‍↕️" },
+  { name: "😌", code: "😌" },
+  { name: "😔", code: "😔" },
+  { name: "😪", code: "😪" },
+  { name: "🤤", code: "🤤" },
+  { name: "😴", code: "😴" },
+  { name: "😷", code: "😷" },
+  { name: "🤒", code: "🤒" },
+  { name: "🤕", code: "🤕" },
+  { name: "🤢", code: "🤢" },
+  { name: "🤮", code: "🤮" },
+  { name: "🤧", code: "🤧" },
+  { name: "🥵", code: "🥵" },
+  { name: "🥶", code: "🥶" },
+  { name: "🥴", code: "🥴" },
+  { name: "😵", code: "😵" },
+  { name: "😵‍💫", code: "😵‍💫" },
+  { name: "🤯", code: "🤯" },
+  { name: "🤠", code: "🤠" },
+  { name: "🥳", code: "🥳" },
+  { name: "🥸", code: "🥸" },
+  { name: "😎", code: "😎" },
+  { name: "🤓", code: "🤓" },
+  { name: "🧐", code: "🧐" },
+  { name: "😕", code: "😕" },
+  { name: "🫤", code: "🫤" },
+  { name: "😟", code: "😟" },
+  { name: "🙁", code: "🙁" },
+  { name: "☹️", code: "☹️" },
+  { name: "😮", code: "😮" },
+  { name: "😯", code: "😯" },
+  { name: "😲", code: "😲" },
+  { name: "😳", code: "😳" },
+  { name: "😧", code: "😧" },
+  { name: "😦", code: "😦" },
+  { name: "🥹", code: "🥹" },
+  { name: "🥺", code: "🥺" },
+  { name: "😨", code: "😨" },
+  { name: "😰", code: "😰" },
+  { name: "😥", code: "😥" },
+  { name: "😢", code: "😢" },
+  { name: "😭", code: "😭" },
+  { name: "😱", code: "😱" },
+  { name: "🥱", code: "🥱" },
+  { name: "😤", code: "😤" },
+  { name: "😡", code: "😡" },
+  { name: "😠", code: "😠" },
+  { name: "🤬", code: "🤬" },
+  { name: "😈", code: "😈" },
+  { name: "👿", code: "👿" },
+  { name: "💀", code: "💀" },
+  { name: "☠️", code: "☠️" },
+  { name: "💩", code: "💩" },
+  { name: "🤡", code: "🤡" },
+  { name: "👹", code: "👹" },
+  { name: "👺", code: "👺" },
+  { name: "👻", code: "👻" },
+  { name: "👽️", code: "👽️" },
+  { name: "👾", code: "👾" },
+  { name: "🤖", code: "🤖" },
+  { name: "😺", code: "😺" },
+  { name: "😸", code: "😸" },
+  { name: "😹", code: "😹" },
+  { name: "😻", code: "😻" },
+  { name: "😼", code: "😼" },
+  { name: "😽", code: "😽" },
+  { name: "🙀", code: "🙀" },
+  { name: "😿", code: "😿" },
+  { name: "😾", code: "😾" },
+  { name: "🙈", code: "🙈" },
+  { name: "🙉", code: "🙉" },
+  { name: "🙊", code: "🙊" },
+  { name: "💌", code: "💌" },
+  { name: "💘", code: "💘" },
+  { name: "💝", code: "💝" },
+  { name: "💗", code: "💗" },
+  { name: "❤️‍🩹", code: "❤️‍🩹" },
+  { name: "💋", code: "💋" },
+  { name: "💢", code: "💢" },
+  { name: "💤", code: "💤" },
+  { name: "💯", code: "💯" },
+  { name: "💫", code: "💫" },
+  { name: "💦", code: "💦" },
+  { name: "🚩", code: "🚩" },
+  { name: "🌏️", code: "🌏️" },
+  { name: "🏡", code: "🏡" },
+  { name: "🌄", code: "🌄" },
+  { name: "🚇️", code: "🚇️" },
+  { name: "🚗", code: "🚗" },
+  { name: "✈️", code: "✈️" },
+  { name: "⛈️", code: "⛈️" },
+  { name: "㊗️", code: "㊗️" },
+  { name: "🈶", code: "🈶" },
+  { name: "🈷️", code: "🈷️" },
+  { name: "🉐", code: "🉐" },
+  { name: "㊙️", code: "㊙️" },
+  { name: "🈚️", code: "🈚️" },
+  { name: "🈯️", code: "🈯️" },
+  { name: "💲", code: "💲" },
+  { name: "♀️", code: "♀️" },
+  { name: "♂️", code: "♂️" },
+  { name: "♻️", code: "♻️" },
+  { name: "🔅", code: "🔅" },
+  { name: "🚳", code: "🚳" },
+  { name: "🚯", code: "🚯" },
+];
+const insertEmoji = (emoji: string) => {
+  // 将结果传递给父组件
+  emit("selectEmjo", emoji);
+};
+</script>
+<template>
+  <view class="emoji-container">
+    <view
+      class="emoji-item"
+      v-for="(emoji, index) in emojiList"
+      :key="index"
+      @tap="insertEmoji(emoji.code)"
+    >
+      <text>{{ emoji.code }}</text>
+    </view>
+  </view>
+</template>
+<style lang="scss">
+.emoji-container {
+  display: flex;
+  flex-wrap: wrap;
+  .emoji-item {
+    width: 10%;
+    padding: 5px;
+    text-align: center;
+    font-size: 20px;
+    cursor: pointer;
+  }
+}
+</style>

@@ -15,7 +15,13 @@ const doLike = (id: number) => {
 };
 </script>
 <template>
-  <view class="card-container" v-for="item in list" :key="item.id">
+  <navigator
+    class="card-container"
+    hover-class="none"
+    v-for="item in list"
+    :key="item.id"
+    :url="`/pages/detail/detail?id=${item.id}`"
+  >
     <!-- 卡片图片 -->
     <image class="card-image" mode="aspectFill" :src="item.coverImage"></image>
     <!-- 卡片内容区域 -->
@@ -57,10 +63,11 @@ const doLike = (id: number) => {
         </view>
       </view>
     </view>
-  </view>
+  </navigator>
 </template>
 
 <style lang="scss">
+@import "@/static/iconfont.css";
 .card-container {
   display: flex;
   align-items: center;

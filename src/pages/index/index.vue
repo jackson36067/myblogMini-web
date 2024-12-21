@@ -78,7 +78,7 @@ onLoad(() => {
   getArticleList();
 });
 
-const doLike = async (id: number) => {
+const doLike = async (id: string) => {
   await doLikeAPI({ id });
   getArticleList();
 };

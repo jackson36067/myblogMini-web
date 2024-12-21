@@ -53,6 +53,8 @@
     "@dcloudio/uni-ui": "^1.5.7",
     "deep-pick-omit": "^1.2.1",
     "destr": "^2.0.3",
+    "highlight.js": "^11.11.0",
+    "marked": "^3.0.8",
     "pinia": "2.0.27",
     "pinia-plugin-persistedstate": "^3.2.3",
     "sass": "^1.82.0",

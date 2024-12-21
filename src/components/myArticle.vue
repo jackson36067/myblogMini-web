@@ -7,7 +7,13 @@ defineProps<{
 }>();
 </script>
 <template>
-  <view class="card-container" v-for="item in list" :key="item.id">
+  <navigator
+    :url="`/pages/detail/detail?id=${item.id}`"
+    hover-class="none"
+    class="card-container"
+    v-for="item in list"
+    :key="item.id"
+  >
     <text class="title">{{ item.title }}</text>
     <view class="content">
       <image :src="item.coverImage" mode="scaleToFill" class="img" />
@@ -26,7 +32,7 @@ defineProps<{
         </view>
       </view>
     </view>
-  </view>
+  </navigator>
 </template>
 <style lang="scss">
 .card-container {

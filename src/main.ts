@@ -8,3 +8,10 @@ export function createApp() {
     app,
   };
 }
+
+// 在项目的入口文件中添加以下代码
+if (!Array.prototype.at) {
+  Array.prototype.at = function (index: number) {
+    return index < 0 ? this[this.length + index] : this[index];
+  };
+}

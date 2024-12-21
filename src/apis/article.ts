@@ -1,4 +1,4 @@
-import type { articleInfo } from "@/types/article";
+import type { articleDetailResult, articleInfo } from "@/types/article";
 import type { pageResult } from "@/types/conponent";
 import { httpInstacne } from "@/utils/http";
 
@@ -21,7 +21,7 @@ export const getArticleAPI = (
   });
 };
 
-export const doLikeAPI = (data: { id: number }) => {
+export const doLikeAPI = (data: { id: string }) => {
   return httpInstacne({
     method: "POST",
     url: `/article/like`,
@@ -50,5 +50,19 @@ export const getMyArticleAPI = (type: number, title?: string) => {
     method: "GET",
     url: `/article/my`,
     data: data,
+  });
+};
+
+export const getArticleDetailAPI = (id: string) => {
+  return httpInstacne<articleDetailResult>({
+    method: "GET",
+    url: `/article/${id}`,
+  });
+};
+
+export const doFavoriteArticleAPI = (id: string) => {
+  return httpInstacne({
+    method: "POST",
+    url: `/article/favorite/${id}`,
   });
 };
