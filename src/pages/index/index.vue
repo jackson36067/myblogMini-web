@@ -157,7 +157,7 @@ const onArticleTitleChange = () => {
       :current="current"
       :values="tabItems"
       style-type="text"
-      active-color="#edbe95"
+      active-color="#dd524d"
       @clickItem="onClickItem"
       class="seg"
     />
@@ -169,6 +169,7 @@ const onArticleTitleChange = () => {
 
 <style lang="scss">
 @import "@/static/iconfont.css";
+@import "@/static/query.css";
 /* 轮播图 */
 .carousel {
   width: 680rpx;
@@ -216,13 +217,6 @@ const onArticleTitleChange = () => {
     align-items: center;
     justify-content: space-between;
   }
-}
-.query {
-  width: 680rpx;
-  margin: 0 auto;
-  background-color: #f0f0f0;
-  border-radius: 30rpx;
-  overflow: hidden;
 }
 .uni-padding-wrap {
   margin: 30rpx 0;

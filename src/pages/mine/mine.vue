@@ -34,9 +34,18 @@ const ownList = ref<own[]>([
 
 // 点击点赞获取popup弹窗
 const likePopup = ref<popup>();
-const showLikePopup = (name: string) => {
+const doSocialAction = (name: string) => {
   if (name === "点赞") {
     likePopup.value?.open();
+  }
+  if (name === "朋友") {
+    uni.navigateTo({ url: `/pages/social/SocialSegmented?current=${0}` });
+  }
+  if (name === "关注") {
+    uni.navigateTo({ url: `/pages/social/SocialSegmented?current=${1}` });
+  }
+  if (name === "粉丝") {
+    uni.navigateTo({ url: `/pages/social/SocialSegmented?current=${2}` });
   }
 };
 // 关闭弹窗
@@ -202,7 +211,7 @@ const itemList = ref<category[]>([
       class="own-list"
       v-for="(item, index) in ownList"
       :key="index"
-      @tap="showLikePopup(item.name)"
+      @tap="doSocialAction(item.name)"
     >
       <view class="number">{{ item.num }}</view>
       <view class="name">{{ item.name }}</view>
@@ -217,7 +226,7 @@ const itemList = ref<category[]>([
     mask-background-color="rgba(0,0,0,0.4)"
   >
     <LikePopup
-      :nickName="memberStore.profile?.nickName"
+      :nickName="memberStore.profile!.nickName"
       :totalLike="ownList[0].num"
       @closeLikePopup="doCloseLikePopup"
     />

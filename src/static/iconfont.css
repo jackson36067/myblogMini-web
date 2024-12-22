@@ -11,6 +11,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-paixu:before {
+  content: "\e66e";
+}
+
+.icon-xiangzuojiantou:before {
+  content: "\e660";
+}
+
+.icon-24gf-ellipsis:before {
+  content: "\eb10";
+}
+
 .icon-cuowu:before {
   content: "\e641";
 }

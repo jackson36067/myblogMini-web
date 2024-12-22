@@ -6,6 +6,9 @@ export type LoginResult = {
 
 export type LoginParams = {
   code: string;
+  avatar: string;
+  gender: string;
+  nickName: string;
 };
 
 export type LoginProfile = {

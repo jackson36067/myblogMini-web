@@ -22,7 +22,12 @@ const wxLogin = () => {
       user.value.nickName = userInfo.nickName;
       wx.login({
         success: async (res) => {
-          const wxData = await wxLoginAPI({ code: res.code });
+          const wxData = await wxLoginAPI({
+            code: res.code,
+            avatar: user.value.avatar,
+            gender: user.value.gender === 0 ? "男" : "女",
+            nickName: user.value.nickName,
+          });
           user.value.id = wxData.data.id;
           user.value.openid = wxData.data.openid;
           user.value.token = wxData.data.token;

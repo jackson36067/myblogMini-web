@@ -1,0 +1,250 @@
+<script setup lang="ts">
+import { ref } from "vue";
+import SortPopup from "./component/SortPopup.vue";
+import type { sortPopupInstance } from "@/types/conponent";
+import type { sortItemResult, userDataResult } from "@/types/social";
+import { onLoad } from "@dcloudio/uni-app";
+import { getUserDataListAPI } from "@/apis/data";
+import { useFollowSortStore } from "@/stores/modules/followSort";
+import { doFollowAPI } from "@/apis/follow";
+
+const { safeAreaInsets } = uni.getSystemInfoSync();
+// 从路径参数中获取current(取决于展示哪个)
+const params = defineProps<{
+  current: string;
+}>();
+
+const followSortStore = useFollowSortStore();
+
+// 输入框内容
+const nickNameOrComment = ref("");
+
+const inputStyle: UniHelper.UniEasyinputStyles = {
+  color: "",
+  borderColor: "",
+  backgroundColor: "",
+  disableColor: "",
+};
+
+// 点击左侧图标回到上一个页面
+const returnMien = () => {
+  uni.switchTab({ url: "/pages/mine/mine" });
+};
+
+// tab默认选中标签
+const current = ref(0);
+// tab栏item内容
+const tabItems = ref<string[]>(["朋友", "关注", "粉丝"]);
+
+// 获取用户信息
+const userDataList = ref<userDataResult[]>([]);
+const getUserDataList = async () => {
+  const res = await getUserDataListAPI(
+    current.value,
+    followSortStore.sort?.sort,
+    nickNameOrComment.value
+  );
+  userDataList.value = res.data;
+};
+
+onLoad(() => {
+  current.value = Number(params.current);
+  getUserDataList();
+});
+
+const onInputChange = () => {
+  getUserDataList();
+};
+
+// 点击tab栏切换内容
+const onClickItem: UniHelper.UniSegmentedControlOnClickItem = (event) => {
+  current.value = event.currentIndex;
+  nickNameOrComment.value = "";
+  getUserDataList();
+};
+
+// 关注页选择排序方式
+const selectSort = (sortItem: sortItemResult) => {
+  followSortStore.setNewSort({ sort: sortItem.sort, name: sortItem.name });
+  getUserDataList();
+};
+
+// 显示排序方式
+const sortPopup = ref<sortPopupInstance>();
+const showSortPopup = () => {
+  sortPopup.value?.updateSortPopupVisible();
+};
+
+const doFollow = async (id: string) => {
+  await doFollowAPI(id);
+  getUserDataList();
+};
+</script>
+<template>
+  <view :style="{ paddingTop: safeAreaInsets?.top + 'px' }">
+    <!-- 自定义导航栏 -->
+    <uni-nav-bar left-icon="left" @clickLeft="returnMien">
+      <view class="uni-nav-bar-content">
+        <!-- 这里将 segmented-control 放在导航栏中 -->
+        <uni-segmented-control
+          :current="current"
+          :values="tabItems"
+          style-type="text"
+          active-color="#191820"
+          @clickItem="onClickItem"
+          class="seg"
+          inActiveColor="#717171"
+        />
+      </view>
+    </uni-nav-bar>
+  </view>
+  <view class="query">
+    <uni-easyinput
+      prefixIcon="search"
+      v-model="nickNameOrComment"
+      placeholder="搜索用户备注或者名字"
+      :inputBorder="false"
+      trim="all"
+      :styles="inputStyle"
+      @change="onInputChange"
+      @clear="onInputChange"
+    ></uni-easyinput>
+  </view>
+  <view class="content">
+    <view class="num">
+      <view v-if="current === 0"> 我的朋友 ({{ userDataList.length }}人) </view>
+      <view v-if="current === 1" class="follow">
+        <view>我的关注 ({{ userDataList.length }}人)</view>
+        <view class="sort" @tap="showSortPopup">
+          <view style="margin-right: 10rpx">{{
+            followSortStore.sort?.name
+          }}</view>
+          <uni-icons
+            custom-prefix="iconfont"
+            type="icon-paixu"
+            size="16"
+          ></uni-icons>
+        </view>
+      </view>
+      <view v-if="current === 2"> 我的粉丝 ({{ userDataList.length }}人) </view>
+    </view>
+    <view class="user" v-for="item in userDataList" :key="item.id">
+      <image class="img" :src="item.avatar" mode="scaleToFill" />
+      <view class="user-info">
+        <view class="nickName">{{
+          item.comment ? item.comment : item.nickName
+        }}</view>
+        <view class="tags">4个作品为查看|看作品 ></view>
+      </view>
+      <view v-if="current !== 0" style="display: flex; align-items: center">
+        <view
+          :class="[
+            'button',
+            {
+              'follow-button': item.isFollow,
+            },
+            {
+              'no-follow-button': !item.isFollow,
+            },
+          ]"
+          @tap="doFollow(item.id)"
+          >{{ item.isFollow ? "已关注" : "回关" }}
+        </view>
+        <uni-icons
+          custom-prefix="iconfont"
+          type="icon-24gf-ellipsis"
+          size="20"
+          class="more"
+        >
+        </uni-icons>
+      </view>
+    </view>
+  </view>
+  <SortPopup ref="sortPopup" @selectSort="selectSort" />
+</template>
+<style lang="scss">
+@import "@/static/query.css";
+@import "@/static/iconfont.css";
+.uni-nav-bar-content {
+  margin: 0 auto;
+  .seg {
+    width: 500rpx;
+    .segmented-control__item {
+      width: 120rpx;
+    }
+  }
+}
+.content {
+  width: 680rpx;
+  margin: 0 auto;
+  .num {
+    margin-top: 40rpx;
+    color: #888;
+    font-size: 28rpx;
+    .follow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .sort {
+        display: flex;
+        font-family: MiSans Regular;
+        font-size: 28rpx;
+      }
+    }
+  }
+  .user {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 160rpx;
+    margin-top: 30rpx;
+    .img {
+      border-radius: 50%;
+      width: 120rpx;
+      height: 120rpx;
+    }
+    .user-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-left: 20rpx;
+      width: 330rpx;
+      .nickName {
+        font-weight: 700;
+        white-space: nowrap; /* 防止文本换行 */
+        overflow: hidden; /* 隐藏超出部分 */
+        text-overflow: ellipsis; /* 超出部分显示省略号 */
+        margin-bottom: 5rpx;
+      }
+      .tags {
+        width: 260rpx;
+        background-color: #e8e8ea;
+        color: #747476;
+        padding: 0 5rpx;
+        border: 1px solid #e1e1e1;
+        white-space: nowrap; /* 防止文本换行 */
+        font-size: 24rpx;
+        border-radius: 15rpx;
+        overflow: hidden; /* 隐藏超出部分 */
+        text-overflow: ellipsis; /* 超出部分显示省略号 */
+        margin-top: 5rpx;
+      }
+    }
+    .button {
+      width: 140rpx;
+      text-align: center;
+      padding: 15rpx 0;
+      margin: 0 25rpx 0 20rpx;
+      border-radius: 20rpx;
+    }
+    .follow-button {
+      background-color: #e8e8ea;
+      color: #353535;
+    }
+    .no-follow-button {
+      background-color: #ff2353;
+      color: #fff;
+    }
+  }
+}
+</style>

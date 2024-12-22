@@ -8,9 +8,9 @@
     "moduleResolution": "node",
     "allowJs": true,
     "sourceMap": true,
-    "baseUrl": ".",
+    "baseUrl": "src", // 确保设置了 baseUrl
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["*"]
     },
     "lib": ["esnext", "dom"],
     "types": [
@@ -29,7 +29,6 @@
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "src/**/*.vue",
     "src/**/*.vue",
     "*.d.ts"
   ]
