@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import SortPopup from "./component/SortPopup.vue";
-import type { sortPopupInstance } from "@/types/conponent";
+import type { popup, sortPopupInstance } from "@/types/conponent";
 import type { sortItemResult, userDataResult } from "@/types/social";
 import { onLoad } from "@dcloudio/uni-app";
 import { getUserDataListAPI } from "@/apis/data";
 import { useFollowSortStore } from "@/stores/modules/followSort";
 import { doFollowAPI } from "@/apis/follow";
+import MorePopup from "./component/MorePopup.vue";
 
 const { safeAreaInsets } = uni.getSystemInfoSync();
 // 从路径参数中获取current(取决于展示哪个)
@@ -75,9 +76,25 @@ const showSortPopup = () => {
   sortPopup.value?.updateSortPopupVisible();
 };
 
+// 点击关注或者取消关注
 const doFollow = async (id: string) => {
   await doFollowAPI(id);
   getUserDataList();
+};
+
+// 更多操作弹窗实例
+const morePopup = ref<popup>();
+// 储存更多操作需要的数据
+const userInfo = ref({ nickName: "", comment: "", id: "" });
+// 点击右侧...图标获取更多操作
+const moreOperate = (nickName: string, comment: string, id: string) => {
+  morePopup.value?.open();
+  userInfo.value.nickName = nickName;
+  userInfo.value.comment = comment;
+  userInfo.value.id = id;
+};
+const closeMorePopup = () => {
+  morePopup.value?.close();
 };
 </script>
 <template>
@@ -148,19 +165,34 @@ const doFollow = async (id: string) => {
             },
           ]"
           @tap="doFollow(item.id)"
-          >{{ item.isFollow ? "已关注" : "回关" }}
+          >{{ !item.isFollow ? "回关" : current === 2 ? "互相关注" : "已关注" }}
         </view>
         <uni-icons
           custom-prefix="iconfont"
           type="icon-24gf-ellipsis"
           size="20"
           class="more"
+          @tap="moreOperate(item.nickName, item.comment, item.id)"
         >
         </uni-icons>
       </view>
     </view>
   </view>
   <SortPopup ref="sortPopup" @selectSort="selectSort" />
+  <uni-popup
+    ref="morePopup"
+    type="bottom"
+    is-mask-click
+    background-color="#f3f3f3"
+    borderRadius="20rpx 20rpx 20rpx 20rpx"
+    mask-background-color="rgba(0,0,0,0.6)"
+  >
+    <MorePopup
+      :current="current"
+      :userInfo="userInfo"
+      @closeMorePopup="closeMorePopup"
+    />
+  </uni-popup>
 </template>
 <style lang="scss">
 @import "@/static/query.css";

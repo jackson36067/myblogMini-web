@@ -7,3 +7,8 @@ export type userDataResult = {
   comment: string;
   isFollow: boolean;
 };
+export type moreUserData = {
+  id: string;
+  nickName: string;
+  comment: string;
+};
