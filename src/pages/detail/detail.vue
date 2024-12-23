@@ -20,6 +20,7 @@ import { useMemberStore } from "@/stores";
 import { doFollowAPI } from "@/apis/follow";
 import Comment from "./component/Comment.vue";
 import type { popup } from "@/types/conponent";
+import MoreCommentPopup from "./component/MoreCommentPopup.vue";
 
 // 获取安全距离
 // 获取屏幕边界到安全区域距离
@@ -274,35 +275,12 @@ const showCommentPopup = async (id: string) => {
       mask-background-color="rgba(0,0,0,0.4)"
       mask-click
     >
-      <view
-        style="
-          height: 1320rpx;
-          overflow-y: scroll;
-          overscroll-behavior: none;
-          padding-top: 20rpx;
-          padding-bottom: 30rpx;
-        "
-      >
-        <view style="display: flex; align-items: center; margin: 0 30rpx 40rpx">
-          <view>
-            <uni-icons
-              custom-prefix="iconfont"
-              type="icon-cuowu"
-              size="18"
-              color="#666666"
-              @tap="commentPopup?.close()"
-            ></uni-icons>
-          </view>
-          <view style="margin-left: 230rpx; font-size: 32rpx; font-weight: 700">
-            全部{{ articleDetailData.totalComment }}条评论
-          </view>
-        </view>
-        <Comment
-          :list="allCommentList"
-          @doFollow="doFollow"
-          @doCommentLike="doCommentLike"
-        />
-      </view>
+      <MoreCommentPopup
+        :list="allCommentList"
+        @closePopup="commentPopup?.close()"
+        @doFollow="doFollow"
+        @doCommentLike="doCommentLike"
+      />
     </uni-popup>
   </scroll-view>
   <!-- 发送评论模块 -->
