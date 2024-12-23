@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import SortPopup from "./component/SortPopup.vue";
-import type { popup, sortPopupInstance } from "@/types/conponent";
+import type {
+  noteDialogPopupInstance,
+  popup,
+  sortPopupInstance,
+} from "@/types/conponent";
 import type {
   moreUserData,
   sortItemResult,
@@ -14,6 +18,7 @@ import { doFollowAPI } from "@/apis/follow";
 import MorePopup from "./component/MorePopup.vue";
 import type { noteResult } from "@/types/note";
 import { createOrUpdateUserNoteAPI, getUserNoteAPI } from "@/apis/note";
+import NoteDialogPopup from "./component/NoteDialogPopup.vue";
 
 const { safeAreaInsets } = uni.getSystemInfoSync();
 // 从路径参数中获取current(取决于展示哪个)
@@ -133,6 +138,9 @@ const notePopupClose = () => {
 };
 
 // 创建或者修改用户备注
+const changeNoteValue = (newValue: string) => {
+  userNote.value.note = newValue;
+};
 const notePopupConfirm = async () => {
   await createOrUpdateUserNoteAPI(
     userNote.value.userNoteId,
@@ -248,24 +256,11 @@ const notePopupConfirm = async () => {
       @confirm="notePopupConfirm"
       message="成功消息"
     >
-      <view class="notePopup">
-        <view class="user_nick_name"> 名字: {{ userNoteNickName }} </view>
-        <input
-          class="note_input"
-          v-model="userNote.note"
-          placeholder="请输入备注"
-          placeholder-class=""
-          type="text"
-        />
-        <view
-          class="note_close_button"
-          v-if="userNote.note"
-          @tap="userNote.note = ''"
-        >
-          <uni-icons custom-prefix="iconfont" type="icon-icon_wrong" size="12">
-          </uni-icons>
-        </view>
-      </view>
+      <NoteDialogPopup
+        :userNoteNickName="userNoteNickName"
+        :note="userNote.note"
+        @changeNoteValue="changeNoteValue"
+      />
     </uni-popup-dialog>
   </uni-popup>
 </template>
@@ -353,34 +348,5 @@ const notePopupConfirm = async () => {
       color: #fff;
     }
   }
-}
-.notePopup {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-.user_nick_name {
-  font-size: 24rpx;
-  color: #4f4f4f;
-  margin: 0 10rpx 20rpx 0;
-}
-.note_input {
-  width: 400rpx;
-  height: 80rpx;
-  background-color: #f3f3f3;
-  padding-left: 10rpx;
-  border-radius: 10rpx;
-}
-.note_close_button {
-  position: absolute;
-  top: 70rpx;
-  right: 14rpx;
-  width: 40rpx;
-  height: 40rpx;
-  border-radius: 50%;
-  background-color: #fff;
-  line-height: 40rpx;
-  text-align: center;
-  z-index: 9999;
 }
 </style>
