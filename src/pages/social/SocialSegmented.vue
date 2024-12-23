@@ -2,12 +2,18 @@
 import { ref } from "vue";
 import SortPopup from "./component/SortPopup.vue";
 import type { popup, sortPopupInstance } from "@/types/conponent";
-import type { sortItemResult, userDataResult } from "@/types/social";
+import type {
+  moreUserData,
+  sortItemResult,
+  userDataResult,
+} from "@/types/social";
 import { onLoad } from "@dcloudio/uni-app";
 import { getUserDataListAPI } from "@/apis/data";
 import { useFollowSortStore } from "@/stores/modules/followSort";
 import { doFollowAPI } from "@/apis/follow";
 import MorePopup from "./component/MorePopup.vue";
+import type { noteResult } from "@/types/note";
+import { createOrUpdateUserNoteAPI, getUserNoteAPI } from "@/apis/note";
 
 const { safeAreaInsets } = uni.getSystemInfoSync();
 // 从路径参数中获取current(取决于展示哪个)
@@ -23,7 +29,7 @@ const nickNameOrComment = ref("");
 const inputStyle: UniHelper.UniEasyinputStyles = {
   color: "",
   borderColor: "",
-  backgroundColor: "",
+  backgroundColor: "#f3f3f3",
   disableColor: "",
 };
 
@@ -93,8 +99,46 @@ const moreOperate = (nickName: string, comment: string, id: string) => {
   userInfo.value.comment = comment;
   userInfo.value.id = id;
 };
+// 关闭更多组件弹窗
 const closeMorePopup = () => {
   morePopup.value?.close();
+};
+
+// 填写备注对话框实例
+const notePopup = ref<popup>();
+
+// 获取用户备注
+const userNote = ref<noteResult>({
+  id: "",
+  note: "",
+  userId: "",
+  userNoteId: "",
+});
+const userNoteNickName = ref("");
+const getUserNote = async (userInfo: moreUserData) => {
+  notePopup.value?.open();
+  userNoteNickName.value = userInfo.nickName;
+  const res = await getUserNoteAPI(userInfo.id);
+  if (res.data) {
+    userNote.value = res.data;
+  } else {
+    userNote.value.userNoteId = userInfo.id;
+    userNote.value.note = userInfo.nickName;
+  }
+  morePopup.value?.close();
+};
+
+const notePopupClose = () => {
+  notePopup.value?.close();
+};
+
+// 创建或者修改用户备注
+const notePopupConfirm = async () => {
+  await createOrUpdateUserNoteAPI(
+    userNote.value.userNoteId,
+    userNote.value.note
+  );
+  getUserDataList();
 };
 </script>
 <template>
@@ -191,7 +235,38 @@ const closeMorePopup = () => {
       :current="current"
       :userInfo="userInfo"
       @closeMorePopup="closeMorePopup"
+      @showNotePopup="getUserNote"
     />
+  </uni-popup>
+  <!-- 设置备注对话框 -->
+  <uni-popup ref="notePopup" type="dialog">
+    <uni-popup-dialog
+      mode="input"
+      title="设置备注"
+      :duration="2000"
+      @close="notePopupClose"
+      @confirm="notePopupConfirm"
+      message="成功消息"
+    >
+      <view class="notePopup">
+        <view class="user_nick_name"> 名字: {{ userNoteNickName }} </view>
+        <input
+          class="note_input"
+          v-model="userNote.note"
+          placeholder="请输入备注"
+          placeholder-class=""
+          type="text"
+        />
+        <view
+          class="note_close_button"
+          v-if="userNote.note"
+          @tap="userNote.note = ''"
+        >
+          <uni-icons custom-prefix="iconfont" type="icon-icon_wrong" size="12">
+          </uni-icons>
+        </view>
+      </view>
+    </uni-popup-dialog>
   </uni-popup>
 </template>
 <style lang="scss">
@@ -278,5 +353,34 @@ const closeMorePopup = () => {
       color: #fff;
     }
   }
+}
+.notePopup {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.user_nick_name {
+  font-size: 24rpx;
+  color: #4f4f4f;
+  margin: 0 10rpx 20rpx 0;
+}
+.note_input {
+  width: 400rpx;
+  height: 80rpx;
+  background-color: #f3f3f3;
+  padding-left: 10rpx;
+  border-radius: 10rpx;
+}
+.note_close_button {
+  position: absolute;
+  top: 70rpx;
+  right: 14rpx;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background-color: #fff;
+  line-height: 40rpx;
+  text-align: center;
+  z-index: 9999;
 }
 </style>

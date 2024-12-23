@@ -18,7 +18,10 @@ const followSettings = ref<setting[]>([
 ]);
 
 // 点击关闭符号关闭弹窗
-const emit = defineEmits<(event: "closeMorePopup") => void>();
+const emit = defineEmits<{
+  (event: "closeMorePopup"): void;
+  (event: "showNotePopup", userInfo: moreUserData): void;
+}>();
 const closeMorePopup = () => {
   emit("closeMorePopup");
 };
@@ -37,6 +40,12 @@ const fansOperate = ref<setting[]>([
     icon: "icon-lahei",
   },
 ]);
+
+const operateUserNote = (userInfo: moreUserData, name: string) => {
+  if (name === "设置备注") {
+    emit("showNotePopup", userInfo);
+  }
+};
 </script>
 
 <template>
@@ -66,6 +75,7 @@ const fansOperate = ref<setting[]>([
             class="setting"
             v-for="(item, index) in followSettings"
             :key="index"
+            @tap="operateUserNote(userInfo, item.name)"
           >
             <view>{{ item.name }}</view>
             <uni-icons
@@ -137,7 +147,6 @@ const fansOperate = ref<setting[]>([
     background-color: #e7e7e7;
     line-height: 60rpx;
     text-align: center;
-    font-weight: 700;
   }
   .name {
     .strong {

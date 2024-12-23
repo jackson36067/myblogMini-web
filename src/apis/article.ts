@@ -24,7 +24,7 @@ export const getArticleAPI = (
 export const doLikeAPI = (data: { id: string }) => {
   return httpInstacne({
     method: "POST",
-    url: `/article/like`,
+    url: `/article/doLike`,
     data,
   });
 };
