@@ -6,6 +6,7 @@ import type { articleInfo } from "@/types/article";
 import { doLikeAPI, getArticleAPI } from "@/apis/article";
 import { onLoad } from "@dcloudio/uni-app";
 import Article from "@/components/article.vue";
+import IndexSkeleton from "./component/indexSkeleton.vue";
 const swiperBanner = ref<string[]>([
   "https://ossweb-img.qq.com/images/lol/web201310/skin/big84001.jpg",
   "https://ossweb-img.qq.com/images/lol/web201310/skin/big39000.jpg",
@@ -74,8 +75,10 @@ const getArticleList = async () => {
   articleList.value = res.data.list;
 };
 
-onLoad(() => {
-  getArticleList();
+const isLoading = ref(true);
+onLoad(async () => {
+  await getArticleList();
+  isLoading.value = false;
 });
 
 const doLike = async (id: string) => {
@@ -91,80 +94,82 @@ const onClickItem: UniHelper.UniSegmentedControlOnClickItem = (event) => {
   getArticleList();
 };
 
-//
 const onArticleTitleChange = () => {
   getArticleList();
 };
 </script>
 
 <template>
-  <view class="carousel">
-    <swiper
-      :circular="true"
-      :autoplay="true"
-      :interval="3000"
-      @change="swiperChange"
-    >
-      <swiper-item v-for="(item, index) in swiperBanner" :key="index">
-        <navigator
-          url="/pages/index/index"
-          hover-class="none"
-          class="navigator"
-        >
-          <image mode="aspectFill" class="image" :src="item"></image>
-        </navigator>
-      </swiper-item>
-    </swiper>
-    <!-- 指示点 -->
-    <view class="indicator">
-      <text
-        v-for="(item, index) in swiperBanner.length"
-        :key="item"
-        :class="['dot', { active: index === activeIndex }]"
-      ></text>
+  <IndexSkeleton v-if="isLoading" />
+  <template v-else>
+    <view class="carousel">
+      <swiper
+        :circular="true"
+        :autoplay="true"
+        :interval="3000"
+        @change="swiperChange"
+      >
+        <swiper-item v-for="(item, index) in swiperBanner" :key="index">
+          <navigator
+            url="/pages/index/index"
+            hover-class="none"
+            class="navigator"
+          >
+            <image mode="aspectFill" class="image" :src="item"></image>
+          </navigator>
+        </swiper-item>
+      </swiper>
+      <!-- 指示点 -->
+      <view class="indicator">
+        <text
+          v-for="(item, index) in swiperBanner.length"
+          :key="item"
+          :class="['dot', { active: index === activeIndex }]"
+        ></text>
+      </view>
     </view>
-  </view>
-  <view class="category">
-    <navigator
-      class="category-item"
-      hover-class="none"
-      url="/pages/index/index"
-      v-for="(item, index) in categoryList"
-      :key="index"
-    >
-      <uni-icons
-        custom-prefix="iconfont"
-        :type="item.icon"
-        size="30"
-        :color="item.color"
-      ></uni-icons>
-      <text class="text">{{ item.title }}</text>
-    </navigator>
-  </view>
-  <view class="query">
-    <uni-easyinput
-      prefixIcon="search"
-      v-model="articleTitle"
-      placeholder="搜索感兴趣的文章"
-      :inputBorder="false"
-      trim="all"
-      :styles="inputStyle"
-      @change="onArticleTitleChange"
-    ></uni-easyinput>
-  </view>
-  <view class="uni-padding-wrap uni-common-mt">
-    <uni-segmented-control
-      :current="current"
-      :values="tabItems"
-      style-type="text"
-      active-color="#dd524d"
-      @clickItem="onClickItem"
-      class="seg"
-    />
-  </view>
-  <view class="content">
-    <Article :list="articleList" @clicked="doLike" />
-  </view>
+    <view class="category">
+      <navigator
+        class="category-item"
+        hover-class="none"
+        url="/pages/index/index"
+        v-for="(item, index) in categoryList"
+        :key="index"
+      >
+        <uni-icons
+          custom-prefix="iconfont"
+          :type="item.icon"
+          size="30"
+          :color="item.color"
+        ></uni-icons>
+        <text class="text">{{ item.title }}</text>
+      </navigator>
+    </view>
+    <view class="query">
+      <uni-easyinput
+        prefixIcon="search"
+        v-model="articleTitle"
+        placeholder="搜索感兴趣的文章"
+        :inputBorder="false"
+        trim="all"
+        :styles="inputStyle"
+        @change="onArticleTitleChange"
+      ></uni-easyinput>
+    </view>
+    <view class="uni-padding-wrap uni-common-mt">
+      <uni-segmented-control
+        :current="current"
+        :values="tabItems"
+        style-type="text"
+        active-color="#dd524d"
+        @clickItem="onClickItem"
+        class="seg"
+      />
+    </view>
+    <view class="content">
+      <Article :list="articleList" @clicked="doLike" />
+    </view>
+  </template>
 </template>
 
 <style lang="scss">

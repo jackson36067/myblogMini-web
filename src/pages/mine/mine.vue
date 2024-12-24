@@ -8,6 +8,7 @@ import type { UserInfo } from "@/types/user";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import LikePopup from "./component/LikePopup.vue";
+import MineSkeleton from "./component/mineSkeleton.vue";
 
 const memberStore = useMemberStore();
 const signStore = useSignStore();
@@ -98,8 +99,10 @@ const getUserInfo = async () => {
   ownList.value[2].num = res.data.totalFollow;
   ownList.value[3].num = res.data.totalFans;
 };
-onLoad(() => {
-  getUserInfo();
+const isLoading = ref(true);
+onLoad(async () => {
+  await getUserInfo();
+  isLoading.value = false;
 });
 
 const doSign = async () => {
@@ -146,139 +149,144 @@ const itemList = ref<category[]>([
 ]);
 </script>
 <template>
-  <view class="info" v-if="memberStore.profile?.id">
-    <image
-      class="avatar gray"
-      mode="aspectFill"
-      :src="memberStore.profile.avatar"
-    ></image>
-    <view class="meta">
-      <view class="nickname">
-        {{ memberStore.profile.nickName }}
-      </view>
-      <view class="extra">
-        <text class="tips" style="color: #e3b194"
-          >积分: {{ userInfo?.points }}</text
-        >
-      </view>
-    </view>
-    <view class="chevron-right">
-      <navigator
-        url="/pageMember/userInfo/userInfo"
-        open-type="navigate"
-        hover-class="none"
-      >
-        <uni-icons
-          custom-prefix="iconfont"
-          type="icon-chevron-right"
-          size="16"
-        ></uni-icons>
-      </navigator>
-    </view>
-  </view>
-  <!-- 未登录 -->
-  <view class="info" v-else>
-    <navigator url="/pages/login/login" hover-class="none">
+  <MineSkeleton v-if="isLoading" />
+  <template v-else>
+    <view class="info" v-if="memberStore.profile?.id">
       <image
         class="avatar gray"
         mode="aspectFill"
-        src="http://yjy-xiaotuxian-dev.oss-cn-beijing.aliyuncs.com/picture/2021-04-06/db628d42-88a7-46e7-abb8-659448c33081.png"
+        :src="memberStore.profile.avatar"
       ></image>
-    </navigator>
-    <view class="meta">
-      <navigator url="/pages/login/login" hover-class="none" class="nickname">
-        未登录
-      </navigator>
-      <view class="extra">
-        <text class="tips">点击登录账号</text>
+      <view class="meta">
+        <view class="nickname">
+          {{ memberStore.profile.nickName }}
+        </view>
+        <view class="extra">
+          <text class="tips" style="color: #e3b194"
+            >积分: {{ userInfo?.points }}</text
+          >
+        </view>
+      </view>
+      <view class="chevron-right">
+        <navigator
+          url="/pageMember/userInfo/userInfo"
+          open-type="navigate"
+          hover-class="none"
+        >
+          <uni-icons
+            custom-prefix="iconfont"
+            type="icon-chevron-right"
+            size="16"
+          ></uni-icons>
+        </navigator>
       </view>
     </view>
-  </view>
-  <view class="card" v-if="userInfo?.isSignIn" @tap="toCalendar">
-    <span class="span"
-      >已连续签到
-      <strong class="strong">{{ signStore.sign?.continuousSignInDays }}</strong>
-      天</span
-    >
-    <button class="button">今日已签到</button>
-  </view>
-  <view class="card" v-else>
-    <span class="span">今日还未签到 </span>
-    <button class="button" @tap="doSign">点击签到</button>
-  </view>
-  <view class="own">
-    <view
-      class="own-list"
-      v-for="(item, index) in ownList"
-      :key="index"
-      @tap="doSocialAction(item.name)"
-    >
-      <view class="number">{{ item.num }}</view>
-      <view class="name">{{ item.name }}</view>
+    <!-- 未登录 -->
+    <view class="info" v-else>
+      <navigator url="/pages/login/login" hover-class="none">
+        <image
+          class="avatar gray"
+          mode="aspectFill"
+          src="http://yjy-xiaotuxian-dev.oss-cn-beijing.aliyuncs.com/picture/2021-04-06/db628d42-88a7-46e7-abb8-659448c33081.png"
+        ></image>
+      </navigator>
+      <view class="meta">
+        <navigator url="/pages/login/login" hover-class="none" class="nickname">
+          未登录
+        </navigator>
+        <view class="extra">
+          <text class="tips">点击登录账号</text>
+        </view>
+      </view>
     </view>
-  </view>
-  <!-- 总点赞弹窗 -->
-  <uni-popup
-    ref="likePopup"
-    type="center"
-    background-color="#fff"
-    is-mask-click
-    mask-background-color="rgba(0,0,0,0.4)"
-  >
-    <LikePopup
-      :nickName="memberStore.profile!.nickName"
-      :totalLike="ownList[0].num"
-      @closeLikePopup="doCloseLikePopup"
-    />
-  </uni-popup>
-  <view class="category">
-    <navigator
-      class="category-item"
-      hover-class="none"
-      v-for="(item, index) in categoryList"
-      :key="index"
-      :url="item.url"
+    <view class="card" v-if="userInfo?.isSignIn" @tap="toCalendar">
+      <span class="span"
+        >已连续签到
+        <strong class="strong">{{
+          signStore.sign?.continuousSignInDays
+        }}</strong>
+        天</span
+      >
+      <button class="button">今日已签到</button>
+    </view>
+    <view class="card" v-else>
+      <span class="span">今日还未签到 </span>
+      <button class="button" @tap="doSign">点击签到</button>
+    </view>
+    <view class="own">
+      <view
+        class="own-list"
+        v-for="(item, index) in ownList"
+        :key="index"
+        @tap="doSocialAction(item.name)"
+      >
+        <view class="number">{{ item.num }}</view>
+        <view class="name">{{ item.name }}</view>
+      </view>
+    </view>
+    <!-- 总点赞弹窗 -->
+    <uni-popup
+      ref="likePopup"
+      type="center"
+      background-color="#fff"
+      is-mask-click
+      mask-background-color="rgba(0,0,0,0.4)"
     >
-      <uni-icons
-        custom-prefix="iconfont"
-        :type="item.icon"
-        size="30"
-        :color="item.color"
-      ></uni-icons>
-      <text class="text">{{ item.title }}</text>
-    </navigator>
-  </view>
-  <view class="content">
-    <navigator
-      v-for="(item, index) in itemList"
-      :key="index"
-      class="list-item"
-      :url="item.url"
-      open-type="navigate"
-      hover-class="none"
-    >
-      <!-- 左侧图标 -->
-      <view class="icon-wrapper">
+      <LikePopup
+        :nickName="memberStore.profile!.nickName"
+        :totalLike="ownList[0].num"
+        @closeLikePopup="doCloseLikePopup"
+      />
+    </uni-popup>
+    <view class="category">
+      <navigator
+        class="category-item"
+        hover-class="none"
+        v-for="(item, index) in categoryList"
+        :key="index"
+        :url="item.url"
+      >
         <uni-icons
           custom-prefix="iconfont"
           :type="item.icon"
-          size="20"
+          size="30"
           :color="item.color"
         ></uni-icons>
-      </view>
-      <!-- 中间标题文本 -->
-      <view class="title">{{ item.title }}</view>
-      <!-- 右侧箭头 -->
-      <view class="arrow-wrapper">
-        <uni-icons
-          custom-prefix="iconfont"
-          type="icon-chevron-right"
-          size="20"
-          color="#d8d8d8"
-        ></uni-icons>
-      </view>
-    </navigator>
-  </view>
+        <text class="text">{{ item.title }}</text>
+      </navigator>
+    </view>
+    <view class="content">
+      <navigator
+        v-for="(item, index) in itemList"
+        :key="index"
+        class="list-item"
+        :url="item.url"
+        open-type="navigate"
+        hover-class="none"
+      >
+        <!-- 左侧图标 -->
+        <view class="icon-wrapper">
+          <uni-icons
+            custom-prefix="iconfont"
+            :type="item.icon"
+            size="20"
+            :color="item.color"
+          ></uni-icons>
+        </view>
+        <!-- 中间标题文本 -->
+        <view class="title">{{ item.title }}</view>
+        <!-- 右侧箭头 -->
+        <view class="arrow-wrapper">
+          <uni-icons
+            custom-prefix="iconfont"
+            type="icon-chevron-right"
+            size="20"
+            color="#d8d8d8"
+          ></uni-icons>
+        </view>
+      </navigator>
+    </view>
+  </template>
 </template>
 <style lang="scss">
 @import "@/static/iconfont.css";

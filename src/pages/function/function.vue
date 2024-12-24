@@ -3,6 +3,7 @@ import { getAllClassifyAPI } from "@/apis/classify";
 import type { classifyResult } from "@/types/classify";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
+import FunctionSkeleton from "./component/functionSkeleton.vue";
 
 // 生成随机的渐变色
 function getRandomGradient(): string {
@@ -43,36 +44,41 @@ const getClassifyList = async () => {
     background: getRandomGradient(),
   }));
 };
-onLoad(() => {
-  getClassifyList();
+const isLoading = ref(true);
+onLoad(async () => {
+  await getClassifyList();
+  isLoading.value = false;
 });
 </script>
 
 <template>
-  <view class="article">文章分类</view>
-  <view class="classify">
-    <navigator
-      class="item"
-      v-for="item in calssifyList"
-      :key="item.id"
-      :style="{
-        background: item.background,
-      }"
-      hover-class="none"
-      :url="`/pages/classify/classify?id=${item.id}`"
-    >
-      <view class="type">
-        <span style="font-size: 46rpx">{{ item.type[0] }}</span
-        >{{ item.type.slice(1) }}</view
+  <FunctionSkeleton v-if="isLoading" />
+  <template v-else>
+    <view class="article">文章分类</view>
+    <view class="classify">
+      <navigator
+        class="item"
+        v-for="item in calssifyList"
+        :key="item.id"
+        :style="{
+          background: item.background,
+        }"
+        hover-class="none"
+        :url="`/pages/classify/classify?id=${item.id}`"
       >
-      <uni-icons
-        class="icon"
-        :type="item.icon"
-        custom-prefix="iconfont"
-        size="40"
-      />
-    </navigator>
-  </view>
+        <view class="type">
+          <span style="font-size: 46rpx">{{ item.type[0] }}</span
+          >{{ item.type.slice(1) }}</view
+        >
+        <uni-icons
+          class="icon"
+          :type="item.icon"
+          custom-prefix="iconfont"
+          size="40"
+        />
+      </navigator>
+    </view>
+  </template>
 </template>
 <style lang="scss">
 @import "@/static/iconfont.css";
