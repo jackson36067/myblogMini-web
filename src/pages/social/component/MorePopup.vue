@@ -22,6 +22,7 @@ const emit = defineEmits<{
   (event: "closeMorePopup"): void;
   (event: "showNotePopup", userInfo: moreUserData): void;
   (event: "showGroupPopup", userInfo: moreUserData): void;
+  (event: "cancleFollow", id: string): void;
 }>();
 const closeMorePopup = () => {
   emit("closeMorePopup");
@@ -49,6 +50,10 @@ const operateUserInfo = (userInfo: moreUserData, name: string) => {
   if (name === "设置分组") {
     emit("showGroupPopup", userInfo);
   }
+};
+
+const removeFollow = (id: string) => {
+  emit("cancleFollow", id);
 };
 </script>
 
@@ -89,7 +94,7 @@ const operateUserInfo = (userInfo: moreUserData, name: string) => {
             ></uni-icons>
           </view>
         </view>
-        <view class="cancle_follow">
+        <view class="cancle_follow" @tap="removeFollow(userInfo.id)">
           <view>取消关注</view>
           <uni-icons
             custom-prefix="iconfont"

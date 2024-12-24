@@ -190,9 +190,16 @@ const groupNamePopupConfirm = async (memberId: string) => {
   uni.showToast({ title: "新建分组成功", icon: "success" });
 };
 
+// 修改或者新增用户分组成员
 const insertOrChangeGroupMember = async (id: string, memberId: string) => {
   await insertOrChangeMemberToGroupAPI(id, memberId);
   genGroupInfo(memberId);
+};
+
+// 更多弹窗取消关注功能
+const cancleFollow = (id: string) => {
+  doFollow(id);
+  morePopup.value?.close();
 };
 </script>
 <template>
@@ -293,6 +300,7 @@ const insertOrChangeGroupMember = async (id: string, memberId: string) => {
       @closeMorePopup="closeMorePopup"
       @showNotePopup="getUserNote"
       @showGroupPopup="getGroupInfo"
+      @cancleFollow="cancleFollow"
     />
   </uni-popup>
   <!-- 设置备注对话框 -->
