@@ -11,6 +11,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-lishi:before {
+  content: "\e63b";
+}
+
 .icon-duigouxiao:before {
   content: "\e8bd";
 }

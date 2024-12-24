@@ -146,6 +146,24 @@ const itemList = ref<category[]>([
     color: "#E5A3A3",
     url: `/pages/mine/mine`,
   },
+  {
+    icon: "icon-yonghuzu",
+    title: "分组管理",
+    color: "#666666",
+    url: "",
+  },
+  {
+    icon: "icon-lishi",
+    title: "历史观看",
+    color: "skyblue",
+    url: "",
+  },
+  {
+    icon: "icon-lahei",
+    title: "黑名单管理",
+    color: "#fd3c13",
+    url: "",
+  },
 ]);
 </script>
 <template>
@@ -269,7 +287,7 @@ const itemList = ref<category[]>([
           <uni-icons
             custom-prefix="iconfont"
             :type="item.icon"
-            size="20"
+            size="22"
             :color="item.color"
           ></uni-icons>
         </view>
