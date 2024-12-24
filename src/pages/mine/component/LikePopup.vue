@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import LikePanle from "@/static/image/likePanel.jpg";
 defineProps<{
   nickName: string;
   totalLike: number;
@@ -13,7 +14,9 @@ const doCloseLikePopup = () => {
 </script>
 <template>
   <view class="likePopup">
-    <view class="backgroundPanel"></view>
+    <view class="backgroundPanel">
+      <image class="img" :src="LikePanle" mode="scaleToFill" />
+    </view>
     <view class="data"> "{{ nickName }}"共获得{{ totalLike }}赞 </view>
     <view class="confirm" @tap="doCloseLikePopup">确认</view>
   </view>
@@ -24,7 +27,10 @@ const doCloseLikePopup = () => {
   .backgroundPanel {
     width: 100%;
     height: 300rpx;
-    background: linear-gradient(90deg, #d5b9ec, #b9fbef);
+    .img {
+      width: 100%;
+      height: 100%;
+    }
   }
   .data {
     padding: 60rpx 0;
@@ -39,9 +45,6 @@ const doCloseLikePopup = () => {
     text-align: center;
     font-weight: 700;
     font-size: 30rpx;
-    &:hover {
-      background-color: rgb(0, 0, 0, 0.3);
-    }
   }
 }
 </style>
