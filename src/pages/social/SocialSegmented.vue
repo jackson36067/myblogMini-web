@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import SortPopup from "./component/SortPopup.vue";
-import type {
-  noteDialogPopupInstance,
-  popup,
-  sortPopupInstance,
-} from "@/types/conponent";
+import type { popup, sortPopupInstance } from "@/types/conponent";
 import type {
   moreUserData,
   sortItemResult,
@@ -17,8 +13,13 @@ import { useFollowSortStore } from "@/stores/modules/followSort";
 import { doFollowAPI } from "@/apis/follow";
 import MorePopup from "./component/MorePopup.vue";
 import type { noteResult } from "@/types/note";
+import type { userGroupResult } from "@/types/userGroup";
 import { createOrUpdateUserNoteAPI, getUserNoteAPI } from "@/apis/note";
 import NoteDialogPopup from "./component/NoteDialogPopup.vue";
+import { addUserGroupAPI, getUserGroupListAPI } from "@/apis/userGroup";
+import GroupPopup from "./component/GroupPopup.vue";
+import type { groupMemberResult } from "@/types/groupMember";
+import { insertOrChangeMemberToGroupAPI } from "@/apis/groupMember";
 
 const { safeAreaInsets } = uni.getSystemInfoSync();
 // 从路径参数中获取current(取决于展示哪个)
@@ -148,6 +149,51 @@ const notePopupConfirm = async () => {
   );
   getUserDataList();
 };
+
+// 判断该用户是否为该组成员
+const isGroupMember = (id: string, groupMembers: groupMemberResult[]) => {
+  return groupMembers.some((member) => member.id === id);
+};
+
+// 分组弹窗实例
+const groupPopup = ref<popup>();
+// 获取分组信息
+const genGroupInfo = async (memberId: string) => {
+  const res = await getUserGroupListAPI();
+  userGroupList.value = res.data;
+  userGroupList.value.forEach((item) => {
+    // 判断该用户在每个组是否为存在,其实要么在一个组存在,要么不存在
+    item.isMember = isGroupMember(memberId, item.groupMemberVOList);
+  });
+};
+const userGroupList = ref<userGroupResult[]>([]);
+const memberId = ref("0"); // 成员id
+const getGroupInfo = async (userInfo: moreUserData) => {
+  groupPopup.value?.open();
+  memberId.value = userInfo.id;
+  genGroupInfo(userInfo.id);
+  console.log(userGroupList.value);
+  morePopup.value?.close();
+};
+
+const groupName = ref("");
+
+// 获取最新输入框的值
+const onChangeGroupNameValue = async (newValue: string) => {
+  groupName.value = newValue;
+};
+
+const groupNamePopupConfirm = async (memberId: string) => {
+  await addUserGroupAPI(groupName.value);
+  groupName.value = "";
+  genGroupInfo(memberId);
+  uni.showToast({ title: "新建分组成功", icon: "success" });
+};
+
+const insertOrChangeGroupMember = async (id: string, memberId: string) => {
+  await insertOrChangeMemberToGroupAPI(id, memberId);
+  genGroupInfo(memberId);
+};
 </script>
 <template>
   <view :style="{ paddingTop: safeAreaInsets?.top + 'px' }">
@@ -230,7 +276,9 @@ const notePopupConfirm = async () => {
       </view>
     </view>
   </view>
+  <!-- 关注排序弹窗 -->
   <SortPopup ref="sortPopup" @selectSort="selectSort" />
+  <!-- 点击...图标的更多操作弹窗 -->
   <uni-popup
     ref="morePopup"
     type="bottom"
@@ -244,6 +292,7 @@ const notePopupConfirm = async () => {
       :userInfo="userInfo"
       @closeMorePopup="closeMorePopup"
       @showNotePopup="getUserNote"
+      @showGroupPopup="getGroupInfo"
     />
   </uni-popup>
   <!-- 设置备注对话框 -->
@@ -262,6 +311,25 @@ const notePopupConfirm = async () => {
         @changeNoteValue="changeNoteValue"
       />
     </uni-popup-dialog>
+  </uni-popup>
+  <!-- 分组弹窗 -->
+  <uni-popup
+    ref="groupPopup"
+    type="bottom"
+    is-mask-click
+    background-color="#fff"
+    borderRadius="20rpx 20rpx 20rpx 20rpx"
+    mask-background-color="rgba(0,0,0,0.6)"
+  >
+    <GroupPopup
+      :groupList="userGroupList"
+      :memberId="memberId"
+      @closeGroupPopup="groupPopup?.close()"
+      :groupName="groupName"
+      @onChangeGroupNameValue="onChangeGroupNameValue"
+      @groupNamePopupConfirm="groupNamePopupConfirm"
+      @changeGroupMember="insertOrChangeGroupMember"
+    />
   </uni-popup>
 </template>
 <style lang="scss">

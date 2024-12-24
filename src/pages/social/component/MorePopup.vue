@@ -21,6 +21,7 @@ const followSettings = ref<setting[]>([
 const emit = defineEmits<{
   (event: "closeMorePopup"): void;
   (event: "showNotePopup", userInfo: moreUserData): void;
+  (event: "showGroupPopup", userInfo: moreUserData): void;
 }>();
 const closeMorePopup = () => {
   emit("closeMorePopup");
@@ -41,9 +42,12 @@ const fansOperate = ref<setting[]>([
   },
 ]);
 
-const operateUserNote = (userInfo: moreUserData, name: string) => {
+const operateUserInfo = (userInfo: moreUserData, name: string) => {
   if (name === "设置备注") {
     emit("showNotePopup", userInfo);
+  }
+  if (name === "设置分组") {
+    emit("showGroupPopup", userInfo);
   }
 };
 </script>
@@ -75,7 +79,7 @@ const operateUserNote = (userInfo: moreUserData, name: string) => {
             class="setting"
             v-for="(item, index) in followSettings"
             :key="index"
-            @tap="operateUserNote(userInfo, item.name)"
+            @tap="operateUserInfo(userInfo, item.name)"
           >
             <view>{{ item.name }}</view>
             <uni-icons
