@@ -187,6 +187,27 @@
         </view>
       </view>
     </navigator>
+    <navigator class="list-item" hover-class="none" open-type="navigate">
+      <view class="icon-wrapper">
+        <view is="node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons">
+          <text
+            class="uni-icons icons--uni-icons uniui-icon-pinglun1 icons--uniui-icon-pinglun1 iconfont icons--iconfont icon-pinglun1 icons--icon-pinglun1 sk-pseudo sk-pseudo-circle"
+            style="color: #9edfb8; font-size: 20px"
+          ></text>
+        </view>
+      </view>
+      <view class="title sk-transparent sk-text-14-2857-669 sk-text"
+        >评论管理</view
+      >
+      <view class="arrow-wrapper">
+        <view is="node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons">
+          <text
+            class="uni-icons icons--uni-icons uniui-icon-chevron-right icons--uniui-icon-chevron-right iconfont icons--iconfont icon-chevron-right icons--icon-chevron-right sk-pseudo sk-pseudo-circle"
+            style="color: #d8d8d8; font-size: 20px"
+          ></text>
+        </view>
+      </view>
+    </navigator>
   </view>
 </template>
 <style>

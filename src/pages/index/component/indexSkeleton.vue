@@ -289,6 +289,73 @@
           </view>
         </view>
       </navigator>
+      <navigator
+        class="card-container article--card-container"
+        hover-class="none"
+      >
+        <image
+          class="card-image article--card-image sk-image"
+          mode="aspectFill"
+        ></image>
+        <view class="card-content article--card-content">
+          <text
+            class="card-title article--card-title sk-transparent sk-text-14-2857-465 sk-text"
+            >Jackson</text
+          >
+          <text
+            class="card-description article--card-description sk-transparent sk-text-14-2857-553 sk-text"
+            >数组中重复的数字</text
+          >
+          <view class="card-footer article--card-footer">
+            <text
+              class="date article--date sk-transparent sk-text-14-2857-881 sk-text"
+              >2024/12/16</text
+            >
+            <view class="icons article--icons">
+              <view
+                is="node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons"
+                class="icon article--icon"
+              >
+                <text
+                  class="uni-icons icons--uni-icons uniui-icon-guankan icons--uniui-icon-guankan iconfont icons--iconfont icon-guankan icons--icon-guankan sk-pseudo sk-pseudo-circle"
+                  style="color: #999; font-size: 20px"
+                ></text>
+              </view>
+              <text
+                class="icon-text article--icon-text sk-transparent sk-text-14-2857-986 sk-text"
+                >141</text
+              >
+              <view
+                is="node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons"
+                class="icon article--icon"
+              >
+                <text
+                  class="uni-icons icons--uni-icons uniui-icon-aixin1 icons--uniui-icon-aixin1 iconfont icons--iconfont icon-aixin1 icons--icon-aixin1 sk-pseudo sk-pseudo-circle"
+                  style="color: red; font-size: 20px"
+                ></text>
+              </view>
+              <text
+                class="icon-text article--icon-text sk-transparent sk-opacity"
+                style="margin-left: 2px"
+                >1</text
+              >
+              <view
+                is="node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons"
+                class="icon article--icon"
+              >
+                <text
+                  class="uni-icons icons--uni-icons uniui-icon-pinglun icons--uniui-icon-pinglun iconfont icons--iconfont icon-pinglun icons--icon-pinglun sk-pseudo sk-pseudo-circle"
+                  style="color: #999; font-size: 20px"
+                ></text>
+              </view>
+              <text
+                class="icon-text article--icon-text sk-transparent sk-opacity"
+                >2</text
+              >
+            </view>
+          </view>
+        </view>
+      </navigator>
     </view>
   </view>
 </template>
