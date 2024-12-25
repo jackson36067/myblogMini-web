@@ -20,6 +20,7 @@ import { addUserGroupAPI, getUserGroupListAPI } from "@/apis/userGroup";
 import GroupPopup from "./component/GroupPopup.vue";
 import type { groupMemberResult } from "@/types/groupMember";
 import { insertOrChangeMemberToGroupAPI } from "@/apis/groupMember";
+import UserData from "@/components/userData.vue";
 
 const { safeAreaInsets } = uni.getSystemInfoSync();
 // 从路径参数中获取current(取决于展示哪个)
@@ -92,6 +93,11 @@ const showSortPopup = () => {
 const doFollow = async (id: string) => {
   await doFollowAPI(id);
   getUserDataList();
+};
+
+// 关注用户功能
+const doFollowUser = (id: string) => {
+  doFollow(id);
 };
 
 // 更多操作弹窗实例
@@ -250,41 +256,19 @@ const cancleFollow = (id: string) => {
       </view>
       <view v-if="current === 2"> 我的粉丝 ({{ userDataList.length }}人) </view>
     </view>
-    <view class="user" v-for="item in userDataList" :key="item.id">
-      <image class="img" :src="item.avatar" mode="scaleToFill" />
-      <view class="user-info">
-        <view class="nickName">{{
-          item.comment ? item.comment : item.nickName
-        }}</view>
-        <view class="tags">4个作品为查看|看作品 ></view>
-      </view>
-      <view v-if="current !== 0" style="display: flex; align-items: center">
-        <view
-          :class="[
-            'button',
-            {
-              'follow-button': item.isFollow,
-            },
-            {
-              'no-follow-button': !item.isFollow,
-            },
-          ]"
-          @tap="doFollow(item.id)"
-          >{{ !item.isFollow ? "回关" : current === 2 ? "互相关注" : "已关注" }}
-        </view>
-        <uni-icons
-          custom-prefix="iconfont"
-          type="icon-24gf-ellipsis"
-          size="20"
-          class="more"
-          @tap="moreOperate(item.nickName, item.comment, item.id)"
-        >
-        </uni-icons>
-      </view>
-    </view>
+    <UserData
+      :list="userDataList"
+      :current="current"
+      @doFollow="doFollowUser"
+      @moreOperate="moreOperate"
+    />
   </view>
   <!-- 关注排序弹窗 -->
-  <SortPopup ref="sortPopup" @selectSort="selectSort" />
+  <SortPopup
+    ref="sortPopup"
+    @selectSort="selectSort"
+    style="position: fixed; top: 345rpx; right: 40rpx; z-index: 1"
+  />
   <!-- 点击...图标的更多操作弹窗 -->
   <uni-popup
     ref="morePopup"

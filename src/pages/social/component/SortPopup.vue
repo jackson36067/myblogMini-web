@@ -59,9 +59,7 @@ const selectItem = (item: sortItemResult) => {
 </template>
 <style lang="scss">
 .dropdown-container {
-  position: fixed;
-  top: -160rpx;
-  right: 35rpx;
+  position: relative;
   width: 230rpx;
   height: 181rpx;
   z-index: 1000;
