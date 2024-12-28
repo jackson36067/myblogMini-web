@@ -1,5 +1,5 @@
 import type { articleCommentResult, sendCommentParams } from "@/types/comment";
-import type { pageResult } from "@/types/conponent";
+import type { pageResult } from "@/types/component";
 import { httpInstacne } from "@/utils/http";
 
 export const getArticleCommentAPI = (id: string, isAll?: boolean) => {

@@ -25,3 +25,8 @@ export type popup = {
 };
 
 export type noteDialogPopupInstance = InstanceType<typeof NoteDialogPopup>;
+
+export type instancePositionInfo = {
+  left: number;
+  top: number;
+};

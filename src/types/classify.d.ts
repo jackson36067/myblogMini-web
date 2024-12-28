@@ -1,5 +1,5 @@
 import type { articleInfo } from "./article";
-import type { CustomIconType } from "./conponent";
+import type { CustomIconType } from "./component";
 
 export type classifyResult = {
   id: string;

@@ -19,7 +19,7 @@ import {
 import { useMemberStore } from "@/stores";
 import { doFollowAPI } from "@/apis/follow";
 import Comment from "./component/Comment.vue";
-import type { popup } from "@/types/conponent";
+import type { popup } from "@/types/component";
 import MoreCommentPopup from "./component/MoreCommentPopup.vue";
 
 // 获取安全距离
@@ -444,3 +444,4 @@ const showCommentPopup = async (id: string) => {
   }
 }
 </style>
+@/types/component

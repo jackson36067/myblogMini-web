@@ -112,6 +112,41 @@
           }
         }
       ]
+    },
+    {
+      "root": "pageMember/followGroup",
+      "pages": [
+        {
+          "path": "followGroup",
+          "style": {
+            "navigationBarTitleText": "关注分组"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pageMember/addMember",
+      "pages": [
+        {
+          "path": "addMember",
+          "style": {
+            "navigationBarTitleText": "添加新成员",
+            "navigationStyle": "custom"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pageMember/groupMember",
+      "pages": [
+        {
+          "path": "groupMember",
+          "style": {
+            "navigationBarTitleText": "分组名称",
+            "navigationStyle": "custom"
+          }
+        }
+      ]
     }
   ]
 }

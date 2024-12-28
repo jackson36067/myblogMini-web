@@ -11,6 +11,22 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-shanchu:before {
+  content: "\e8c1";
+}
+
+.icon-xiangyoujiantou:before {
+  content: "\e60d";
+}
+
+.icon-yuanquanjiahao:before {
+  content: "\e61f";
+}
+
+.icon-jiahao-:before {
+  content: "\e60c";
+}
+
 .icon-lishi:before {
   content: "\e63b";
 }

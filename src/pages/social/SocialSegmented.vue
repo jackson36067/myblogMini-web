@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import SortPopup from "./component/SortPopup.vue";
-import type { popup, sortPopupInstance } from "@/types/conponent";
+import type {
+  instancePositionInfo,
+  popup,
+  sortPopupInstance,
+} from "@/types/component";
 import type {
   moreUserData,
   sortItemResult,
@@ -163,6 +167,7 @@ const isGroupMember = (id: string, groupMembers: groupMemberResult[]) => {
 
 // 分组弹窗实例
 const groupPopup = ref<popup>();
+const userGroupList = ref<userGroupResult[]>([]);
 // 获取分组信息
 const genGroupInfo = async (memberId: string) => {
   const res = await getUserGroupListAPI();
@@ -172,7 +177,6 @@ const genGroupInfo = async (memberId: string) => {
     item.isMember = isGroupMember(memberId, item.groupMemberVOList);
   });
 };
-const userGroupList = ref<userGroupResult[]>([]);
 const memberId = ref("0"); // 成员id
 const getGroupInfo = async (userInfo: moreUserData) => {
   groupPopup.value?.open();
@@ -354,59 +358,6 @@ const cancleFollow = (id: string) => {
       }
     }
   }
-  .user {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 160rpx;
-    margin-top: 30rpx;
-    .img {
-      border-radius: 50%;
-      width: 120rpx;
-      height: 120rpx;
-    }
-    .user-info {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      margin-left: 20rpx;
-      width: 330rpx;
-      .nickName {
-        font-weight: 700;
-        white-space: nowrap; /* 防止文本换行 */
-        overflow: hidden; /* 隐藏超出部分 */
-        text-overflow: ellipsis; /* 超出部分显示省略号 */
-        margin-bottom: 5rpx;
-      }
-      .tags {
-        width: 260rpx;
-        background-color: #e8e8ea;
-        color: #747476;
-        padding: 0 5rpx;
-        border: 1px solid #e1e1e1;
-        white-space: nowrap; /* 防止文本换行 */
-        font-size: 24rpx;
-        border-radius: 15rpx;
-        overflow: hidden; /* 隐藏超出部分 */
-        text-overflow: ellipsis; /* 超出部分显示省略号 */
-        margin-top: 5rpx;
-      }
-    }
-    .button {
-      width: 140rpx;
-      text-align: center;
-      padding: 15rpx 0;
-      margin: 0 25rpx 0 20rpx;
-      border-radius: 20rpx;
-    }
-    .follow-button {
-      background-color: #e8e8ea;
-      color: #353535;
-    }
-    .no-follow-button {
-      background-color: #ff2353;
-      color: #fff;
-    }
-  }
 }
 </style>
+@/types/component

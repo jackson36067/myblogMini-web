@@ -1,22 +1,35 @@
 <script setup lang="ts">
+import type { instancePositionInfo } from "@/types/component";
 import type { userDataResult } from "@/types/social";
 
 defineProps<{ list: userDataResult[]; current: number }>();
 
 const emit = defineEmits<{
   (event: "doFollow", id: string): void;
-  (event: "moreOperate", nickName: string, comment: string, id: string): void;
+  (
+    event: "moreOperate",
+    nickName: string,
+    comment: string,
+    id: string,
+    index: number
+  ): void;
 }>();
 const doFollow = (id: string) => {
   emit("doFollow", id);
 };
-const moreOperate = (nickName: string, comment: string, id: string) => {
-  emit("moreOperate", nickName, comment, id);
+
+const moreOperate = (
+  nickName: string,
+  comment: string,
+  id: string,
+  index: number
+) => {
+  emit("moreOperate", nickName, comment, id, index);
 };
 </script>
 
 <template>
-  <view class="user" v-for="item in list" :key="item.id">
+  <view class="user" v-for="(item, index) in list" :key="item.id">
     <image class="img" :src="item.avatar" mode="scaleToFill" />
     <view class="user-info">
       <view class="nickName">{{
@@ -42,10 +55,66 @@ const moreOperate = (nickName: string, comment: string, id: string) => {
         custom-prefix="iconfont"
         type="icon-24gf-ellipsis"
         size="20"
-        class="more"
-        @tap="moreOperate(item.nickName, item.comment, item.id)"
+        :class="`more-icon-${item.id}`"
+        @tap="moreOperate(item.nickName, item.comment, item.id, index)"
       >
       </uni-icons>
     </view>
   </view>
 </template>
+<style lang="scss">
+.user {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 160rpx;
+  margin-top: 30rpx;
+  .img {
+    border-radius: 50%;
+    width: 120rpx;
+    height: 120rpx;
+  }
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 20rpx;
+    width: 330rpx;
+    .nickName {
+      font-weight: 700;
+      white-space: nowrap; /* 防止文本换行 */
+      overflow: hidden; /* 隐藏超出部分 */
+      text-overflow: ellipsis; /* 超出部分显示省略号 */
+      margin-bottom: 5rpx;
+    }
+    .tags {
+      width: 260rpx;
+      background-color: #e8e8ea;
+      color: #747476;
+      padding: 0 5rpx;
+      border: 1px solid #e1e1e1;
+      white-space: nowrap; /* 防止文本换行 */
+      font-size: 24rpx;
+      border-radius: 15rpx;
+      overflow: hidden; /* 隐藏超出部分 */
+      text-overflow: ellipsis; /* 超出部分显示省略号 */
+      margin-top: 5rpx;
+    }
+  }
+  .button {
+    width: 140rpx;
+    text-align: center;
+    padding: 15rpx 0;
+    margin: 0 25rpx 0 20rpx;
+    border-radius: 20rpx;
+  }
+  .follow-button {
+    background-color: #e8e8ea;
+    color: #353535;
+  }
+  .no-follow-button {
+    background-color: #ff2353;
+    color: #fff;
+  }
+}
+</style>

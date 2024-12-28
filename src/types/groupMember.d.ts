@@ -1,5 +1,3 @@
-export type groupMemberResult = {
-  id: string;
-  nickName: string;
-  avatar: string;
-};
+import type { userDataResult } from "./social";
+
+export type groupMemberResult = userDataResult;

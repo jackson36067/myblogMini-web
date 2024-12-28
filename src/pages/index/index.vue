@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { _UniIconsCustomType } from "@uni-helper/uni-types/index";
-import type { category, pageResult } from "@/types/conponent";
+import type { category, pageResult } from "@/types/component";
 import type { articleInfo } from "@/types/article";
 import { doLikeAPI, getArticleAPI } from "@/apis/article";
 import { onLoad } from "@dcloudio/uni-app";
@@ -235,3 +235,4 @@ const onArticleTitleChange = () => {
   padding: 15rpx 0;
 }
 </style>
+@/types/component

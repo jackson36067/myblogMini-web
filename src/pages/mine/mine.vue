@@ -3,7 +3,7 @@ import { getUserInfoAPI } from "@/apis/user";
 import { doSignAPI } from "@/apis/userSign";
 import { useMemberStore } from "@/stores";
 import { useSignStore } from "@/stores/modules/sign";
-import type { category, popup } from "@/types/conponent";
+import type { category, popup } from "@/types/component";
 import type { UserInfo } from "@/types/user";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
@@ -150,7 +150,7 @@ const itemList = ref<category[]>([
     icon: "icon-yonghuzu",
     title: "分组管理",
     color: "#666666",
-    url: "",
+    url: "/pageMember/followGroup/followGroup",
   },
   {
     icon: "icon-lishi",
@@ -450,3 +450,4 @@ const itemList = ref<category[]>([
   }
 }
 </style>
+@/types/component

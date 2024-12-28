@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { userGroupResult } from "@/types/userGroup";
 import emtpy from "@/static/image/empty.jpg";
-import type { popup } from "@/types/conponent";
+import type { popup } from "@/types/component";
 import { ref } from "vue";
 const { safeAreaInsets } = uni.getSystemInfoSync();
 const prors = defineProps<{
@@ -254,3 +254,4 @@ const changeGroupMember = (id: string, memberId: string, isMember: boolean) => {
   }
 }
 </style>
+@/types/component

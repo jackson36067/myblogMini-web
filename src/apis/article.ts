@@ -1,5 +1,5 @@
 import type { articleDetailResult, articleInfo } from "@/types/article";
-import type { pageResult } from "@/types/conponent";
+import type { pageResult } from "@/types/component";
 import { httpInstacne } from "@/utils/http";
 
 export const getArticleAPI = (

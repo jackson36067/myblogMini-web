@@ -1,4 +1,7 @@
-import type { userGroupResult } from "@/types/userGroup";
+import type {
+  addUserFollowGroupResult,
+  userGroupResult,
+} from "@/types/userGroup";
 import { httpInstacne } from "@/utils/http";
 
 export const getUserGroupListAPI = () => {
@@ -15,5 +18,20 @@ export const addUserGroupAPI = (groupName: string) => {
     data: {
       groupName,
     },
+  });
+};
+
+export const getAddGroupMemberInfoListAPI = (
+  groupId: string,
+  nickNameOrComment: string
+) => {
+  const data: Record<string, any> = { groupId };
+  if (nickNameOrComment) {
+    data.nickNameOrComment = nickNameOrComment;
+  }
+  return httpInstacne<addUserFollowGroupResult[]>({
+    method: "GET",
+    url: "/group/add/list",
+    data,
   });
 };
