@@ -35,3 +35,21 @@ export const getAddGroupMemberInfoListAPI = (
     data,
   });
 };
+
+export const updateGroupNameAPI = (id: string, groupName: string) => {
+  return httpInstacne({
+    method: "PUT",
+    url: "/group/name",
+    data: {
+      id,
+      groupName,
+    },
+  });
+};
+
+export const deleteGroupByIdAPI = (id: string) => {
+  return httpInstacne({
+    method: "DELETE",
+    url: `/group/${id}`,
+  });
+};

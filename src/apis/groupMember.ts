@@ -26,13 +26,6 @@ export const addOrDeleteMemberToGroupAPI = (id: string, memberId: string) => {
   });
 };
 
-export const getMemberByGroupIdAPI = (id: string) => {
-  return httpInstacne<groupMemberResult[]>({
-    method: "GET",
-    url: `/group/member/${id}`,
-  });
-};
-
 /**
  *
  * @param id 分组id

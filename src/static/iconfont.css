@@ -11,6 +11,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-tianjiayonghu1:before {
+  content: "\e805";
+}
+
 .icon-shanchu:before {
   content: "\e8c1";
 }

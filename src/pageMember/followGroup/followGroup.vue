@@ -20,7 +20,7 @@ onShow(() => {
     <view class="group-item" v-for="group in userGroupList" :key="group.id">
       <!-- 分组标题 -->
       <navigator
-        :url="`/pageMember/groupMember/groupMember?id=${group.id}&name=${group.groupName}`"
+        :url="`/pageMember/groupMember/groupMember?id=${group.id}`"
         open-type="navigate"
         hover-class="none"
         class="group-header"
