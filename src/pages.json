@@ -147,6 +147,17 @@
           }
         }
       ]
+    },
+    {
+      "root": "pageMember/writeArticle",
+      "pages": [
+        {
+          "path": "writeArticle",
+          "style": {
+            "navigationBarTitleText": "新增文章"
+          }
+        }
+      ]
     }
   ]
 }

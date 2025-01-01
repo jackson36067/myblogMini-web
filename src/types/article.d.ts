@@ -29,3 +29,12 @@ export type articleDetailResult = {
   articleId: string;
   isFavorite: boolean;
 };
+
+export type addArticleParmas = {
+  content: string;
+  title: string;
+  coverImage: string;
+  tags: string[];
+  isShow: boolean;
+  description: string;
+};

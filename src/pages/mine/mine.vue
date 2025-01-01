@@ -132,7 +132,7 @@ const itemList = ref<category[]>([
     icon: "icon-editor",
     title: "新增文章",
     color: "#B6A9E9",
-    url: `/pages/mine/mine`,
+    url: "/pageMember/writeArticle/writeArticle",
   },
   {
     icon: "icon-fenlei",

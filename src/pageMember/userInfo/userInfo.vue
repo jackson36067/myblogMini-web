@@ -19,13 +19,13 @@ const onAvatarChange = () => {
       const { tempFilePath } = res.tempFiles[0];
       // 文件上传
       uni.uploadFile({
-        url: "http://localhost:8080/admin/user/upload",
+        url: "http://localhost:8080/api/user/upload",
         name: "image",
         filePath: tempFilePath, // 新头像
         success: (res) => {
           if (res.statusCode === 200) {
             // 提取头像
-            const { avatar } = JSON.parse(res.data).result;
+            const { avatar } = JSON.parse(res.data).data;
             userProfile.value.avatar = avatar;
             // 当前页面更新头像
             memberStore.profile!.avatar = avatar;

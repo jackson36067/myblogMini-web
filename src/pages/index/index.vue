@@ -166,9 +166,11 @@ const onArticleTitleChange = () => {
         class="seg"
       />
     </view>
-    <view class="content">
-      <Article :list="articleList" @clicked="doLike" />
-    </view>
+    <scroll-view scroll-y class="scroll-content">
+      <view class="content">
+        <Article :list="articleList" @clicked="doLike" />
+      </view>
+    </scroll-view>
   </template>
 </template>
 
@@ -230,9 +232,15 @@ const onArticleTitleChange = () => {
     width: 228rpx;
   }
 }
-.content {
-  background-color: #ededed;
-  padding: 15rpx 0;
+
+/* 滚动部分 */
+.scroll-content {
+  flex: 1;
+  overflow-y: auto; /* 启用垂直滚动 */
+  -webkit-overflow-scrolling: touch; /* 优化滚动体验 */
+  .content {
+    background-color: #ededed;
+    padding: 15rpx 0;
+  }
 }
 </style>
-@/types/component

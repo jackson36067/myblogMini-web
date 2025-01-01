@@ -1,4 +1,8 @@
-import type { articleDetailResult, articleInfo } from "@/types/article";
+import type {
+  addArticleParmas,
+  articleDetailResult,
+  articleInfo,
+} from "@/types/article";
 import type { pageResult } from "@/types/component";
 import { httpInstacne } from "@/utils/http";
 
@@ -64,5 +68,13 @@ export const doFavoriteArticleAPI = (id: string) => {
   return httpInstacne({
     method: "POST",
     url: `/article/favorite/${id}`,
+  });
+};
+
+export const addArticleAPI = (data: addArticleParmas) => {
+  return httpInstacne({
+    method: "POST",
+    url: "/article/add",
+    data,
   });
 };

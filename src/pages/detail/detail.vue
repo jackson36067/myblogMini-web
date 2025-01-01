@@ -52,13 +52,11 @@ const getArticleDetail = async () => {
     const lines = highlighted.split("\n");
     const numberedCode = lines
       .map(
-        (line, index) =>
-          `<span style="font-size: 12px; color: #999; position: sticky; display: inline-block; left: 0; z-index: 1; width: 20px; padding:0 20px 0; background-color: #fff; border-radius: 10px; ">${
-            index + 1
-          }</span> <span style="display: inline-block; z-index=99">${line}</span>`
+        (line) =>
+          `<span style="display: inline-block; z-index=99">${line}</span>`
       )
       .join("\n");
-    return `<pre style="display: flex; background-color: #f6f8fa; border-radius: 20px; color:#000; font-size:16px;  box-sizing: border-box;  white-space: pre; overflow-x: auto; max-width: 100%; position: relative"><code>${numberedCode}</code></pre>`;
+    return `<pre style="display: flex; margin-bottom: 20px; background-color: #f6f8fa; border-radius: 20px; color:#000; font-size:16px;  box-sizing: border-box;  white-space: pre; overflow-x: auto; max-width: 100%; position: relative"><code>${numberedCode}</code></pre>`;
   };
 
   // 为链接添加颜色
@@ -365,6 +363,9 @@ const showCommentPopup = async (id: string) => {
 </template>
 <style lang="scss">
 @import "@/static/iconfont.css";
+page {
+  height: 100%;
+}
 // 页面背景和字体
 .content {
   font-family: "Arial", sans-serif;
@@ -380,7 +381,7 @@ const showCommentPopup = async (id: string) => {
 }
 
 .send-comment {
-  position: relative;
+  // position: relative;
   background-color: #fff;
   z-index: 99999;
   position: sticky;
