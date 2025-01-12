@@ -45,6 +45,18 @@ export const getArticleLikeAPI = (title?: string) => {
   });
 };
 
+export const getArticleFavoriteAPI = (title?: string) => {
+  const data: Record<string, any> = {};
+  if (title) {
+    data.title = title;
+  }
+  return httpInstacne<articleInfo[]>({
+    method: "GET",
+    url: `/article/favorite`,
+    data,
+  });
+};
+
 export const getMyArticleAPI = (type: number, title?: string) => {
   const data: Record<string, any> = { type };
   if (title) {

@@ -59,7 +59,7 @@ const wxLogin = () => {
         微信快捷登录
       </button>
       <view class="tips"
-        >登录/注册即视为你同意《服务条款》和《小兔鲜儿隐私协议》</view
+        >登录/注册即视为你同意《服务条款》和《jackson个人博客隐私协议》</view
       >
     </view>
   </view>

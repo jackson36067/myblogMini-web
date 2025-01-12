@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { getArticleLikeAPI, getMyArticleAPI } from "@/apis/article";
+import {
+  getArticleLikeAPI,
+  getMyArticleAPI,
+  getArticleFavoriteAPI,
+} from "@/apis/article";
 import MyArticle from "@/components/myArticle.vue";
 import type { articleInfo } from "@/types/article";
 import { onLoad } from "@dcloudio/uni-app";
@@ -25,11 +29,18 @@ const getMyArticleList = async () => {
   articleList.value = res.data;
 };
 
+const getMyFavoriteArticle = async () => {
+  const res = await getArticleFavoriteAPI(queryParams?.value);
+  articleList.value = res.data;
+};
+
 const getArticle = () => {
   if (title.params === "我的点赞") {
     getLikeArticleList();
   } else if (title.params === "我的资源") {
     getMyArticleList();
+  } else if (title.params === "我的收藏") {
+    getMyFavoriteArticle();
   }
 };
 
