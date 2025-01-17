@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { instancePositionInfo } from "@/types/component";
 import type { userDataResult } from "@/types/social";
 
 defineProps<{ list: userDataResult[]; current: number }>();
@@ -29,7 +28,14 @@ const moreOperate = (
 </script>
 
 <template>
-  <view class="user" v-for="(item, index) in list" :key="item.id">
+  <navigator
+    :url="`/pages/userDetail/userDetail?id=${item.id}`"
+    open-type="navigate"
+    hover-class="none"
+    class="user"
+    v-for="(item, index) in list"
+    :key="item.id"
+  >
     <image class="img" :src="item.avatar" mode="scaleToFill" />
     <view class="user-info">
       <view class="nickName">{{
@@ -60,7 +66,7 @@ const moreOperate = (
       >
       </uni-icons>
     </view>
-  </view>
+  </navigator>
 </template>
 <style lang="scss">
 .user {

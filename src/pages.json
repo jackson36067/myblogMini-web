@@ -56,6 +56,13 @@
       "style": {
         "navigationStyle": "custom"
       }
+    },
+    {
+      "path": "pages/userDetail/userDetail",
+      "style": {
+        "navigationBarTitleText": "用户详情",
+        "navigationStyle": "custom"
+      }
     }
   ],
   "globalStyle": {

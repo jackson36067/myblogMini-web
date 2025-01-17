@@ -179,7 +179,12 @@ const showCommentPopup = async (id: string) => {
         margin: 40rpx 20rpx;
       "
     >
-      <view style="display: flex">
+      <navigator
+        :url="`/pages/userDetail/userDetail?id=${articleDetailData.id}`"
+        open-type="navigate"
+        hover-class="none"
+        style="display: flex"
+      >
         <image
           style="width: 90rpx; height: 90rpx; border-radius: 50%"
           :src="articleDetailData.avatar"
@@ -211,7 +216,7 @@ const showCommentPopup = async (id: string) => {
             </view>
           </view>
         </view>
-      </view>
+      </navigator>
       <view
         v-if="
           articleDetailData.nickName !== memberStore.profile?.nickName &&

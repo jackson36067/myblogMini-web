@@ -90,3 +90,13 @@ export const addArticleAPI = (data: addArticleParmas) => {
     data,
   });
 };
+
+export const getUserDetailArticleAPI = (id: string, current: number) => {
+  return httpInstacne<articleInfo[]>({
+    method: "GET",
+    url: `/article/detail/${id}`,
+    data: {
+      current,
+    },
+  });
+};

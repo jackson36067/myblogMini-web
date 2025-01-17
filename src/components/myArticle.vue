@@ -53,6 +53,7 @@ defineProps<{
   .content {
     display: flex;
     gap: 10rpx;
+    margin-top: 30rpx;
     .img {
       width: 164rpx;
       height: 164rpx;

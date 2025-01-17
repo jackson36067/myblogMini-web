@@ -11,6 +11,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-sanjiaoxing:before {
+  content: "\e6bd";
+}
+
+.icon-triangle-fill:before {
+  content: "\e76f";
+}
+
+.icon-zuojiantou-cu:before {
+  content: "\e6c9";
+}
+
 .icon-tianjiayonghu1:before {
   content: "\e805";
 }

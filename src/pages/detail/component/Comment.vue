@@ -24,7 +24,12 @@ const doCommentLike = (id: string) => {
     v-for="item in list"
     :key="item.id"
   >
-    <view class="image">
+    <navigator
+      :url="`/pages/userDetail/userDetail?id=${item.id}`"
+      open-type="navigate"
+      hover-class="none"
+      class="image"
+    >
       <image :src="item.avatar" mode="scaleToFill" />
       <view
         class="follow"
@@ -32,7 +37,7 @@ const doCommentLike = (id: string) => {
         @tap="doFollow(item.userId)"
         >+</view
       >
-    </view>
+    </navigator>
     <view class="text">
       <view class="nickName">
         <view style="margin-right: 10rpx">{{ item.nickName }}</view>
@@ -95,6 +100,7 @@ const doCommentLike = (id: string) => {
       text-align: center;
       line-height: 40rpx;
       font-size: 36rpx;
+      z-index: 999;
     }
   }
   .text {

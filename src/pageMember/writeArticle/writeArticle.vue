@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { addArticleAPI } from "@/apis/article";
 import { getAllClassifyAPI } from "@/apis/classify";
-import type { classifyResult } from "@/types/classify";
 import type { popup } from "@/types/component";
 import { onLoad } from "@dcloudio/uni-app";
 import { computed, ref } from "vue";
@@ -278,7 +277,7 @@ const saveArticle = async () => {
     <view class="example-body">
       <uni-combox
         :candidates="calssifyList"
-        placeholder="请选择所在城市"
+        placeholder="请选择文章分类"
         v-model="classify"
         emptyTips="暂时没有文章分类"
       ></uni-combox>

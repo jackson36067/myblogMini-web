@@ -34,3 +34,15 @@ export type updateUserParams = {
   avatar: string;
   nickName: string;
 };
+
+export type userDetailData = {
+  id: string;
+  avatar: string;
+  nickName: string;
+  comment: string;
+  totalLike: number;
+  totalFollow: number;
+  totalFans: number;
+  isFollow: boolean;
+  isMutualAttention: boolean;
+};

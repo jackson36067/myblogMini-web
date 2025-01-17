@@ -1,7 +1,9 @@
+import type { userDataResult } from "@/types/social";
 import type {
   LoginParams,
   LoginResult,
   updateUserParams,
+  userDetailData,
   UserInfo,
 } from "@/types/user";
 import { httpInstacne } from "@/utils/http";
@@ -26,5 +28,12 @@ export const updateUserInfoAPI = (data: updateUserParams) => {
     method: "PUT",
     url: "/user/update",
     data,
+  });
+};
+
+export const getUserDetailDataAPI = (id: string) => {
+  return httpInstacne<userDetailData>({
+    method: "GET",
+    url: `/user/${id}`,
   });
 };

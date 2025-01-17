@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import SortPopup from "./component/SortPopup.vue";
-import type {
-  instancePositionInfo,
-  popup,
-  sortPopupInstance,
-} from "@/types/component";
+import type { popup, sortPopupInstance } from "@/types/component";
 import type {
   moreUserData,
   sortItemResult,
