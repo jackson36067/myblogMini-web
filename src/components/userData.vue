@@ -62,7 +62,7 @@ const moreOperate = (
         type="icon-24gf-ellipsis"
         size="20"
         :class="`more-icon-${item.id}`"
-        @tap="moreOperate(item.nickName, item.comment, item.id, index)"
+        @tap.stop="moreOperate(item.nickName, item.comment, item.id, index)"
       >
       </uni-icons>
     </view>

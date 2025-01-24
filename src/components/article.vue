@@ -47,7 +47,7 @@ const doLike = (id: number) => {
             :type="!item.isLike ? 'icon-aixin' : 'icon-aixin1'"
             size="20"
             :color="!item.isLike ? '#999' : 'red'"
-            @tap="doLike(item.id)"
+            @tap.stop="doLike(item.id)"
           ></uni-icons>
           <text class="icon-text" style="margin-left: 5rpx">{{
             item.totalLike
