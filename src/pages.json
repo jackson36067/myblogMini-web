@@ -63,6 +63,12 @@
         "navigationBarTitleText": "用户详情",
         "navigationStyle": "custom"
       }
+    },
+    {
+      "path": "pages/message/message",
+      "style": {
+        "navigationBarTitleText": "消息"
+      }
     }
   ],
   "globalStyle": {
@@ -88,6 +94,12 @@
         "pagePath": "pages/function/function",
         "iconPath": "static/tab/function.png",
         "selectedIconPath": "static/tab/function_clicked.png"
+      },
+      {
+        "text": "消息",
+        "pagePath": "pages/message/message",
+        "iconPath": "static/tab/message.png",
+        "selectedIconPath": "static/tab/message_click.png"
       },
       {
         "text": "我的",
