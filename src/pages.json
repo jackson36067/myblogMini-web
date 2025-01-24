@@ -99,7 +99,7 @@
         "text": "消息",
         "pagePath": "pages/message/message",
         "iconPath": "static/tab/message.png",
-        "selectedIconPath": "static/tab/message_click.png"
+        "selectedIconPath": "static/tab/message_clicked.png"
       },
       {
         "text": "我的",

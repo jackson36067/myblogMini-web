@@ -11,6 +11,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-hudongguanli:before {
+  content: "\e6ac";
+}
+
+.icon-message:before {
+  content: "\e631";
+}
+
 .icon-sanjiaoxing:before {
   content: "\e6bd";
 }
