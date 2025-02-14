@@ -12,6 +12,7 @@ const user = ref<LoginProfile>({
   avatar: "",
   gender: 0,
 });
+
 const wxLogin = () => {
   wx.getUserProfile({
     desc: "获取用户信息",
@@ -33,6 +34,10 @@ const wxLogin = () => {
           user.value.token = wxData.data.token;
           memberStore.setProfile(user.value);
           uni.navigateBack();
+          // 建立websocket连接
+          uni.connectSocket({
+            url: `ws://localhost:8080/websocket?userId=${wxData.data.id}`,
+          });
         },
       });
     },

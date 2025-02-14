@@ -235,7 +235,7 @@ const onArticleTitleChange = () => {
 
 /* 滚动部分 */
 .scroll-content {
-  flex: 1;
+  height: 700rpx;
   overflow-y: auto; /* 启用垂直滚动 */
   -webkit-overflow-scrolling: touch; /* 优化滚动体验 */
   .content {

@@ -69,6 +69,13 @@
       "style": {
         "navigationBarTitleText": "消息"
       }
+    },
+    {
+      "path": "pages/chat/chat",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "聊天"
+      }
     }
   ],
   "globalStyle": {

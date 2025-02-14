@@ -1,16 +1,36 @@
 <script setup lang="ts">
 import { getUserDataListAPI } from "@/apis/data";
+import { getUnReadMessageListAPI } from "@/apis/chat";
 import type { userDataResult } from "@/types/social";
-import { onLoad } from "@dcloudio/uni-app";
+import { onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
+import type { unReadMessage } from "@/types/chat";
+import { useUnReadMessageStore } from "@/stores/modules/unReadStore";
 
 const userDataList = ref<userDataResult[]>([]);
 const getUserDataList = async () => {
   const res = await getUserDataListAPI(0);
   userDataList.value = res.data;
 };
-onLoad(() => {
+// 获取未读信息
+const unreadMessageList = ref<unReadMessage[]>([]);
+const unreadMessageStore = useUnReadMessageStore();
+const getUnReadMessageList = async () => {
+  const res = await getUnReadMessageListAPI();
+  unreadMessageList.value = res.data;
+  const totalUnReadMessage = unreadMessageList.value
+    .map((item) => {
+      return item.unReadMessageNumber;
+    })
+    .reduce((prev: number, item: number) => {
+      return prev + item;
+    });
+  // 使用pinia保存未读数字
+  unreadMessageStore.setTotalUnReadMessage(totalUnReadMessage);
+};
+onShow(() => {
   getUserDataList();
+  getUnReadMessageList();
 });
 </script>
 
@@ -67,6 +87,31 @@ onLoad(() => {
         </view>
         <view class="time">前天</view>
       </view>
+      <navigator
+        v-for="item in unreadMessageList"
+        :key="item.senderId"
+        :url="`/pages/chat/chat?id=${item.senderId}`"
+        hover-class="none"
+        class="item"
+      >
+        <view class="info">
+          <view class="icon-interaction">
+            <image class="image" :src="item.avatar" mode="scaleToFill" />
+          </view>
+          <view class="notice">
+            <view class="theme">{{ item.nickName }}</view>
+            <view class="situation">{{ item.lastOnlineTime }}</view>
+          </view>
+        </view>
+        <view class="badge" v-if="item.unReadMessageNumber > 0">
+          <uni-badge
+            class="uni-badge-left-margin"
+            :text="item.unReadMessageNumber.toString()"
+            size="normal"
+          />
+        </view>
+        <view class="time">前天</view>
+      </navigator>
     </view>
   </view>
 </template>
@@ -126,7 +171,7 @@ onLoad(() => {
           .icon {
             position: absolute;
             top: 30rpx;
-            left: 30rpx;
+            left: 26rpx;
           }
         }
 
@@ -140,7 +185,13 @@ onLoad(() => {
           .icon {
             position: absolute;
             top: 30rpx;
-            left: 30rpx;
+            left: 26rpx;
+          }
+
+          .image {
+            width: 110rpx;
+            height: 110rpx;
+            border-radius: 50%;
           }
         }
 
@@ -167,7 +218,11 @@ onLoad(() => {
       .time {
         font-size: 24rpx;
         color: #9a9a9a;
-        margin: 20rpx 0 0 0;
+        margin: 26rpx 0 0 0;
+      }
+
+      .badge {
+        margin: 20rpx 0 0 80rpx;
       }
     }
   }

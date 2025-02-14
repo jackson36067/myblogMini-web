@@ -183,7 +183,12 @@ const onClickItem: UniHelper.UniSegmentedControlOnClickItem = (event) => {
             size="24"
             color="#18171f"
           />
-          <view>发私信</view>
+          <navigator
+            :url="`/pages/chat/chat?id=${userDetailData.id}`"
+            hover-class="none"
+          >
+            发私信
+          </navigator>
         </view>
       </view>
       <view v-else-if="userDetailData.isFollow" class="info">
@@ -206,7 +211,12 @@ const onClickItem: UniHelper.UniSegmentedControlOnClickItem = (event) => {
             size="24"
             color="#18171f"
           />
-          <view>发私信</view>
+          <navigator
+            :url="`/pages/chat/chat?id=${userDetailData.id}`"
+            hover-class="none"
+          >
+            发私信
+          </navigator>
         </view>
       </view>
       <view v-else class="not_follow_button">
