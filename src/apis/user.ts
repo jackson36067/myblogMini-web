@@ -37,3 +37,10 @@ export const getUserDetailDataAPI = (id: string) => {
     url: `/user/${id}`,
   });
 };
+
+export const getUserBrowseHistoryAPI = () => {
+  return httpInstacne<userDataResult[]>({
+    method: "GET",
+    url: "/user/history",
+  });
+};

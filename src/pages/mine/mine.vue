@@ -156,7 +156,7 @@ const itemList = ref<category[]>([
     icon: "icon-lishi",
     title: "历史观看",
     color: "skyblue",
-    url: "",
+    url: "/pages/history/history",
   },
   {
     icon: "icon-lahei",
@@ -450,4 +450,3 @@ const itemList = ref<category[]>([
   }
 }
 </style>
-@/types/component

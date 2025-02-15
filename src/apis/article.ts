@@ -100,3 +100,10 @@ export const getUserDetailArticleAPI = (id: string, current: number) => {
     },
   });
 };
+
+export const getArticleBrowseHistoryAPI = () => {
+  return httpInstacne<articleInfo[]>({
+    method: "GET",
+    url: "/article/history",
+  });
+};

@@ -76,6 +76,12 @@
         "navigationStyle": "custom",
         "navigationBarTitleText": "聊天"
       }
+    },
+    {
+      "path": "pages/history/history",
+      "style": {
+        "navigationBarTitleText": "观看历史"
+      }
     }
   ],
   "globalStyle": {
