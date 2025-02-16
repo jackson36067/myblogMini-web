@@ -15,18 +15,22 @@ const getUserDataList = async () => {
 // 获取未读信息
 const unreadMessageList = ref<unReadMessage[]>([]);
 const unreadMessageStore = useUnReadMessageStore();
+const unreadFollowMessageNumber = ref<number>(0);
 const getUnReadMessageList = async () => {
   const res = await getUnReadMessageListAPI();
-  unreadMessageList.value = res.data;
-  const totalUnReadMessage = unreadMessageList.value
+  unreadMessageList.value = res.data.unReadMessageVOList;
+  const totalUnReadMessageNumber = unreadMessageList.value
     .map((item) => {
       return item.unReadMessageNumber;
     })
     .reduce((prev: number, item: number) => {
       return prev + item;
     });
+  unreadFollowMessageNumber.value = res.data.totalUnReadFollowMessageNumber;
   // 使用pinia保存未读数字
-  unreadMessageStore.setTotalUnReadMessage(totalUnReadMessage);
+  unreadMessageStore.setTotalUnReadMessage(
+    totalUnReadMessageNumber + unreadFollowMessageNumber.value
+  );
 };
 onShow(() => {
   getUserDataList();
@@ -50,7 +54,12 @@ onShow(() => {
       </navigator>
     </view>
     <view class="message-list">
-      <view class="item">
+      <navigator
+        class="item"
+        url="/pageMember/newFollow/newFollow"
+        open-type="navigate"
+        hover-class="none"
+      >
         <view class="info">
           <view class="icon_new_follow">
             <uni-icons
@@ -66,9 +75,15 @@ onShow(() => {
             <view class="situation">没有新通知</view>
           </view>
         </view>
-
+        <view class="badge" v-if="unreadFollowMessageNumber > 0">
+          <uni-badge
+            class="uni-badge-left-margin"
+            :text="unreadFollowMessageNumber.toString()"
+            size="normal"
+          />
+        </view>
         <view class="time">01/02</view>
-      </view>
+      </navigator>
       <view class="item">
         <view class="info">
           <view class="icon-interaction">

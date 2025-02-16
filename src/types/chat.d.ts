@@ -22,3 +22,9 @@ export type unReadMessage = {
   lastOnlineTime: string;
   unReadMessageNumber: number;
 };
+
+export type totalUnReadMessage = {
+  totalUnReadFollowMessageNumber: number;
+  totalUnReadInteractMessageNumber: number;
+  unReadMessageVOList: unReadMessage[];
+};

@@ -1,195 +1,206 @@
 {
-  // 配置uni-ui自动导入
-  "easycom": {
-    "autoscan": true,
-    "custom": {
-      // uni-ui 规则如下配置, 使用正则表达式匹配
-      "^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
-    }
-  },
-  "pages": [
-    //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-    {
-      "path": "pages/index/index",
-      "style": {
-        "navigationBarTitleText": "首页"
-      }
-    },
-    {
-      "path": "pages/mine/mine",
-      "style": {
-        "navigationBarTitleText": "我的"
-      }
-    },
-    {
-      "path": "pages/function/function",
-      "style": {
-        "navigationBarTitleText": "专题"
-      }
-    },
-    {
-      "path": "pages/login/login",
-      "style": {
-        "navigationBarTitleText": "登录"
-      }
-    },
-    {
-      "path": "pages/classify/classify",
-      "style": {
-        "navigationBarTitleText": "文章分类详情"
-      }
-    },
-    {
-      "path": "pages/article/article",
-      "style": {
-        // "navigationBarTitleText": "我的喜欢"
-      }
-    },
-    {
-      "path": "pages/detail/detail",
-      "style": {
-        "navigationBarTitleText": "文章详情"
-      }
-    },
-    {
-      "path": "pages/social/SocialSegmented",
-      "style": {
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/userDetail/userDetail",
-      "style": {
-        "navigationBarTitleText": "用户详情",
-        "navigationStyle": "custom"
-      }
-    },
-    {
-      "path": "pages/message/message",
-      "style": {
-        "navigationBarTitleText": "消息"
-      }
-    },
-    {
-      "path": "pages/chat/chat",
-      "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "聊天"
-      }
-    },
-    {
-      "path": "pages/history/history",
-      "style": {
-        "navigationBarTitleText": "观看历史"
-      }
-    }
-  ],
-  "globalStyle": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
-  },
-  "tabBar": {
-    "color": "#333",
-    "backgroundColor": "#fff",
-    "borderStyle": "black",
-    "selectedColor": "skyblue",
-    "list": [
-      {
-        "text": "首页",
-        "pagePath": "pages/index/index",
-        "iconPath": "static/tab/index.png",
-        "selectedIconPath": "static/tab/index_clicked.png"
-      },
-      {
-        "text": "专题",
-        "pagePath": "pages/function/function",
-        "iconPath": "static/tab/function.png",
-        "selectedIconPath": "static/tab/function_clicked.png"
-      },
-      {
-        "text": "消息",
-        "pagePath": "pages/message/message",
-        "iconPath": "static/tab/message.png",
-        "selectedIconPath": "static/tab/message_clicked.png"
-      },
-      {
-        "text": "我的",
-        "pagePath": "pages/mine/mine",
-        "iconPath": "static/tab/mine.png",
-        "selectedIconPath": "static/tab/mine_clicked.png"
-      }
-    ]
-  },
-  "subPackages": [
-    {
-      "root": "pageMember/calendar",
-      "pages": [
-        {
-          "path": "calendar",
-          "style": {
-            "navigationBarTitleText": "签到详情"
-          }
-        }
-      ]
-    },
-    {
-      "root": "pageMember/userInfo",
-      "pages": [
-        {
-          "path": "userInfo",
-          "style": {
-            "navigationBarTitleText": "修改信息"
-          }
-        }
-      ]
-    },
-    {
-      "root": "pageMember/followGroup",
-      "pages": [
-        {
-          "path": "followGroup",
-          "style": {
-            "navigationBarTitleText": "关注分组"
-          }
-        }
-      ]
-    },
-    {
-      "root": "pageMember/addMember",
-      "pages": [
-        {
-          "path": "addMember",
-          "style": {
-            "navigationBarTitleText": "添加新成员",
-            "navigationStyle": "custom"
-          }
-        }
-      ]
-    },
-    {
-      "root": "pageMember/groupMember",
-      "pages": [
-        {
-          "path": "groupMember",
-          "style": {
-            "navigationBarTitleText": "分组名称",
-            "navigationStyle": "custom"
-          }
-        }
-      ]
-    },
-    {
-      "root": "pageMember/writeArticle",
-      "pages": [
-        {
-          "path": "writeArticle",
-          "style": {
-            "navigationBarTitleText": "新增文章"
-          }
-        }
-      ]
-    }
-  ]
+	// 配置uni-ui自动导入
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+			// uni-ui 规则如下配置, 使用正则表达式匹配
+			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+		}
+	},
+	"pages": [
+		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/mine/mine",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/function/function",
+			"style": {
+				"navigationBarTitleText": "专题"
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/classify/classify",
+			"style": {
+				"navigationBarTitleText": "文章分类详情"
+			}
+		},
+		{
+			"path": "pages/article/article",
+			"style": {
+				// "navigationBarTitleText": "我的喜欢"
+			}
+		},
+		{
+			"path": "pages/detail/detail",
+			"style": {
+				"navigationBarTitleText": "文章详情"
+			}
+		},
+		{
+			"path": "pages/social/SocialSegmented",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/userDetail/userDetail",
+			"style": {
+				"navigationBarTitleText": "用户详情",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/message/message",
+			"style": {
+				"navigationBarTitleText": "消息"
+			}
+		},
+		{
+			"path": "pages/chat/chat",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "聊天"
+			}
+		},
+		{
+			"path": "pages/history/history",
+			"style": {
+				"navigationBarTitleText": "观看历史"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#333",
+		"backgroundColor": "#fff",
+		"borderStyle": "black",
+		"selectedColor": "skyblue",
+		"list": [
+			{
+				"text": "首页",
+				"pagePath": "pages/index/index",
+				"iconPath": "static/tab/index.png",
+				"selectedIconPath": "static/tab/index_clicked.png"
+			},
+			{
+				"text": "专题",
+				"pagePath": "pages/function/function",
+				"iconPath": "static/tab/function.png",
+				"selectedIconPath": "static/tab/function_clicked.png"
+			},
+			{
+				"text": "消息",
+				"pagePath": "pages/message/message",
+				"iconPath": "static/tab/message.png",
+				"selectedIconPath": "static/tab/message_clicked.png"
+			},
+			{
+				"text": "我的",
+				"pagePath": "pages/mine/mine",
+				"iconPath": "static/tab/mine.png",
+				"selectedIconPath": "static/tab/mine_clicked.png"
+			}
+		]
+	},
+	"subPackages": [
+		{
+			"root": "pageMember/calendar",
+			"pages": [
+				{
+					"path": "calendar",
+					"style": {
+						"navigationBarTitleText": "签到详情"
+					}
+				}
+			]
+		},
+		{
+			"root": "pageMember/userInfo",
+			"pages": [
+				{
+					"path": "userInfo",
+					"style": {
+						"navigationBarTitleText": "修改信息"
+					}
+				}
+			]
+		},
+		{
+			"root": "pageMember/followGroup",
+			"pages": [
+				{
+					"path": "followGroup",
+					"style": {
+						"navigationBarTitleText": "关注分组"
+					}
+				}
+			]
+		},
+		{
+			"root": "pageMember/addMember",
+			"pages": [
+				{
+					"path": "addMember",
+					"style": {
+						"navigationBarTitleText": "添加新成员",
+						"navigationStyle": "custom"
+					}
+				}
+			]
+		},
+		{
+			"root": "pageMember/groupMember",
+			"pages": [
+				{
+					"path": "groupMember",
+					"style": {
+						"navigationBarTitleText": "分组名称",
+						"navigationStyle": "custom"
+					}
+				}
+			]
+		},
+		{
+			"root": "pageMember/writeArticle",
+			"pages": [
+				{
+					"path": "writeArticle",
+					"style": {
+						"navigationBarTitleText": "新增文章"
+					}
+				}
+			]
+		},
+		{
+			"root": "pageMember/newFollow",
+			"pages": [
+				{
+					"path": "newFollow",
+					"style": {
+						"navigationBarTitleText": "新关注我的"
+					}
+				}
+			]
+		}
+	]
 }

@@ -1,4 +1,4 @@
-import type { chatMessageDTO, unReadMessage } from "@/types/chat";
+import type { chatMessageDTO, totalUnReadMessage } from "@/types/chat";
 import { httpInstacne } from "@/utils/http";
 
 export const getChatMessageListAPI = (id: string) => {
@@ -9,7 +9,7 @@ export const getChatMessageListAPI = (id: string) => {
 };
 
 export const getUnReadMessageListAPI = () => {
-  return httpInstacne<unReadMessage[]>({
+  return httpInstacne<totalUnReadMessage>({
     method: "GET",
     url: "/chat/unread",
   });
